@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* Extended design tokens for MoveShare */
+:root {
+  /* Existing tokens */
+  --ms-bg: #f7fbff;
+  --ms-foreground: #0f172a;
+  --ms-primary: #0ea5a4;
+  --ms-accent: #2563eb;
+  --ms-muted: #64748b;
+  --ms-surface: #ffffff;
+  --ms-radius: 12px;
+  --ms-container: 1120px;
+  
+  /* Extended color palette */
+  --ms-border: #e6eef6;
+  --ms-success: #10b981;
+  --ms-error: #ef4444;
+  --ms-warning: #f59e0b;
+  --ms-info: #3b82f6;
+  
+  /* Light color variants */
+  --ms-primary-light: rgba(14, 165, 164, 0.1);
+  --ms-success-light: rgba(16, 185, 129, 0.1);
+  --ms-error-light: rgba(239, 68, 68, 0.1);
+  --ms-warning-light: rgba(245, 158, 11, 0.1);
+  --ms-muted-light: #f3f4f6;
+  --ms-bg-secondary: #f8fafc;
+  --ms-text: var(--ms-foreground);
+  
+  /* Shadows */
+  --ms-shadow-sm: 0 2px 8px rgba(2, 6, 23, 0.04);
+  --ms-shadow-md: 0 6px 18px rgba(2, 6, 23, 0.08);
+  --ms-shadow-lg: 0 12px 30px rgba(2, 6, 23, 0.12);
+  --ms-shadow-xl: 0 20px 50px rgba(2, 6, 23, 0.16);
+  
+  /* Spacing */
+  --ms-space-xs: 4px;
+  --ms-space-sm: 8px;
+  --ms-space-md: 12px;
+  --ms-space-lg: 16px;
+  --ms-space-xl: 24px;
+  --ms-space-2xl: 32px;
+  
+  /* Typography */
+  --ms-font-size-xs: 12px;
+  --ms-font-size-sm: 14px;
+  --ms-font-size-base: 16px;
+  --ms-font-size-lg: 18px;
+  --ms-font-size-xl: 20px;
+  --ms-font-size-2xl: 24px;
+  --ms-font-size-3xl: 32px;
+  
+  /* Transitions */
+  --ms-transition-fast: 160ms ease;
+  --ms-transition-base: 220ms ease;
+  --ms-transition-slow: 320ms ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--ms-bg);
+  color: var(--ms-foreground);
+}
+
+input, select, button {
+  padding: 8px 12px;
+  margin: 8px 0;
+  border: 1px solid #e6eef6;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  transition: box-shadow 220ms ease, transform 200ms ease, border-color 200ms ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: rgba(37,99,235,0.9);
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+  transform: translateY(-1px);
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,99,235,0.12); }
+button:active { transform: translateY(0); }
+
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; opacity: 0.92 }
+
+nav { background-color: transparent; }

@@ -1,0 +1,453 @@
+.ride-details-page {
+  padding: 2rem 0 4rem;
+  min-height: calc(100vh - 60px);
+}
+
+.back-button {
+  margin-bottom: 1.5rem;
+}
+
+.ride-details-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--ms-muted);
+}
+
+.ride-details-error {
+  text-align: center;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.ride-details-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.ride-info-card,
+.vehicle-card,
+.passengers-card,
+.driver-card,
+.reviews-card {
+  padding: 2rem;
+}
+
+.ride-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.ride-info-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ms-text);
+  margin: 0;
+}
+
+.status-badge-active {
+  padding: 0.5rem 1rem;
+  background: var(--ms-success-light);
+  color: var(--ms-success);
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.ride-route-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+}
+
+.route-point-large {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.route-point-large svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.route-location-large {
+  font-size: 1.125rem;
+  color: var(--ms-text);
+  font-weight: 600;
+}
+
+.route-line-large {
+  width: 3px;
+  height: 1.5rem;
+  background: var(--ms-border);
+  margin-left: 11px;
+}
+
+.ride-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.info-item svg {
+  flex-shrink: 0;
+  color: var(--ms-primary);
+  margin-top: 2px;
+}
+
+.info-label {
+  font-size: 0.8125rem;
+  color: var(--ms-muted);
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-size: 1rem;
+  color: var(--ms-text);
+  font-weight: 600;
+}
+
+.ride-booking-section {
+  padding-top: 2rem;
+  border-top: 1px solid var(--ms-border);
+}
+
+.book-button {
+  width: 100%;
+}
+
+.vehicle-card h2,
+.passengers-card h2,
+.driver-card h2,
+.reviews-card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ms-text);
+  margin: 0 0 1.5rem 0;
+}
+
+.vehicle-photos {
+  margin-bottom: 1.5rem;
+  border-radius: var(--ms-radius);
+  overflow: hidden;
+}
+
+.vehicle-photo-main {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.vehicle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vehicle-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ms-text);
+  font-size: 0.9375rem;
+}
+
+.vehicle-detail svg {
+  color: var(--ms-muted);
+}
+
+.color-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--ms-border);
+}
+
+.passengers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.passenger-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+}
+
+.passenger-avatar-small {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ms-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.passenger-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.passenger-name-small {
+  font-size: 0.875rem;
+  color: var(--ms-text);
+  font-weight: 500;
+}
+
+.passenger-seats-small {
+  font-size: 0.8125rem;
+  color: var(--ms-muted);
+}
+
+.driver-profile {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.driver-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--ms-border);
+  flex-shrink: 0;
+}
+
+.driver-photo-fallback {
+  background: linear-gradient(135deg, var(--ms-primary), var(--ms-accent));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.driver-info-main h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ms-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.driver-rating-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.driver-rating-text {
+  font-size: 0.875rem;
+  color: var(--ms-muted);
+  font-weight: 500;
+}
+
+.driver-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ms-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.driver-bio {
+  padding: 1rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: var(--ms-text);
+}
+
+.driver-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.reviews-list-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.booking-modal-content,
+.review-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.booking-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+}
+
+.summary-route,
+.summary-date {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ms-text);
+  font-size: 0.9375rem;
+}
+
+.summary-route svg,
+.summary-date svg {
+  color: var(--ms-primary);
+}
+
+.seats-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.seats-selector label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ms-text);
+}
+
+.seats-select {
+  padding: 0.75rem;
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  font-size: 0.9375rem;
+  color: var(--ms-text);
+  background: white;
+  cursor: pointer;
+}
+
+.seats-select:focus {
+  outline: none;
+  border-color: var(--ms-primary);
+  box-shadow: 0 0 0 3px var(--ms-primary-light);
+}
+
+.booking-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ms-text);
+}
+
+.total-price {
+  font-size: 1.5rem;
+  color: var(--ms-primary);
+}
+
+.review-driver-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+}
+
+.review-driver-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ms-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.review-rating-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.review-rating-section label,
+.review-comment-section label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ms-text);
+}
+
+.review-comment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.review-textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: var(--ms-text);
+  resize: vertical;
+}
+
+.review-textarea:focus {
+  outline: none;
+  border-color: var(--ms-primary);
+  box-shadow: 0 0 0 3px var(--ms-primary-light);
+}
+
+.review-hint {
+  font-size: 0.8125rem;
+  color: var(--ms-muted);
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .ride-details-content {
+    grid-template-columns: 1fr;
+  }
+
+  .ride-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .passengers-grid {
+    grid-template-columns: 1fr;
+  }
+}

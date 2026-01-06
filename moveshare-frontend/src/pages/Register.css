@@ -1,0 +1,162 @@
+.register-page {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem 1rem;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.register-card {
+  padding: 2.5rem 2rem;
+  background: white;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.register-logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.register-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ms-text);
+  margin-bottom: 0.5rem;
+}
+
+.register-header p {
+  color: var(--ms-muted);
+  font-size: 0.9rem;
+}
+
+.register-error {
+  background: var(--ms-error-light);
+  border: 1px solid var(--ms-error);
+  color: var(--ms-error);
+  padding: 0.875rem 1rem;
+  border-radius: var(--ms-radius);
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.register-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ms-border);
+}
+
+.register-footer p {
+  color: var(--ms-muted);
+  font-size: 0.875rem;
+}
+
+.register-link {
+  color: var(--ms-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.register-link:hover {
+  color: var(--ms-accent);
+  text-decoration: underline;
+}
+
+.register-benefits {
+  padding: 2rem;
+  background: white;
+  border-radius: var(--ms-radius-lg);
+  box-shadow: var(--ms-shadow-md);
+}
+
+.register-benefits h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ms-text);
+  margin-bottom: 1.5rem;
+}
+
+.benefit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.benefit-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.benefit-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--ms-radius);
+  background: linear-gradient(135deg, rgba(14, 165, 164, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.benefit-content {
+  flex: 1;
+}
+
+.benefit-content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ms-text);
+  margin-bottom: 0.25rem;
+}
+
+.benefit-content p {
+  font-size: 0.875rem;
+  color: var(--ms-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .register-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .register-benefits {
+    display: none;
+  }
+
+  .register-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .register-page {
+    padding: 1rem;
+  }
+}

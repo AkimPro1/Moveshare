@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+moveshare-backend/vendor/
+
+# Environment files
+.env
+.env.backup
+.env.production
+moveshare-backend/.env
+moveshare-frontend/.env
+
+# Laravel specific
+moveshare-backend/storage/*.key
+moveshare-backend/public/storage
+moveshare-backend/public/hot
+moveshare-backend/public/build
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build outputs
+moveshare-frontend/dist/

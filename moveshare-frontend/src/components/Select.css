@@ -1,0 +1,57 @@
+.ms-select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ms-space-sm);
+}
+
+.ms-select-full {
+  width: 100%;
+}
+
+.ms-select-label {
+  font-size: var(--ms-font-size-sm);
+  font-weight: 600;
+  color: var(--ms-foreground);
+}
+
+.ms-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--ms-border);
+  border-radius: 10px;
+  font-size: var(--ms-font-size-base);
+  font-family: inherit;
+  color: var(--ms-foreground);
+  background: var(--ms-surface);
+  cursor: pointer;
+  transition: border-color var(--ms-transition-base), 
+              box-shadow var(--ms-transition-base),
+              transform var(--ms-transition-base);
+}
+
+.ms-select:focus {
+  outline: none;
+  border-color: var(--ms-accent);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
+  transform: translateY(-1px);
+}
+
+.ms-select-error {
+  border-color: var(--ms-error);
+}
+
+.ms-select-error:focus {
+  border-color: var(--ms-error);
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.12);
+}
+
+.ms-select-error-text {
+  font-size: var(--ms-font-size-sm);
+  color: var(--ms-error);
+}
+
+.ms-select:disabled {
+  background: rgba(100, 116, 139, 0.05);
+  cursor: not-allowed;
+  opacity: 0.6;
+}

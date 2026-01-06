@@ -1,0 +1,126 @@
+.ms-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ms-space-sm);
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--ms-transition-fast), 
+              box-shadow var(--ms-transition-fast), 
+              opacity var(--ms-transition-fast);
+  font-family: inherit;
+  position: relative;
+}
+
+.ms-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.ms-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ms-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ms-button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.12);
+  outline-offset: 3px;
+}
+
+/* Sizes */
+.ms-button-sm {
+  padding: 6px 12px;
+  font-size: var(--ms-font-size-sm);
+}
+
+.ms-button-md {
+  padding: 10px 16px;
+  font-size: var(--ms-font-size-base);
+}
+
+.ms-button-lg {
+  padding: 12px 20px;
+  font-size: var(--ms-font-size-lg);
+}
+
+/* Variants */
+.ms-button-primary {
+  background: var(--ms-accent);
+  color: white;
+}
+
+.ms-button-primary:hover:not(:disabled) {
+  box-shadow: var(--ms-shadow-md);
+}
+
+.ms-button-secondary {
+  background: var(--ms-primary);
+  color: white;
+}
+
+.ms-button-secondary:hover:not(:disabled) {
+  box-shadow: var(--ms-shadow-md);
+}
+
+.ms-button-outline {
+  background: transparent;
+  border: 1px solid var(--ms-border);
+  color: var(--ms-foreground);
+}
+
+.ms-button-outline:hover:not(:disabled) {
+  background: rgba(37, 99, 235, 0.04);
+  border-color: var(--ms-accent);
+}
+
+.ms-button-ghost {
+  background: transparent;
+  color: var(--ms-muted);
+}
+
+.ms-button-ghost:hover:not(:disabled) {
+  background: rgba(37, 99, 235, 0.06);
+  color: var(--ms-foreground);
+}
+
+.ms-button-danger {
+  background: var(--ms-error);
+  color: white;
+}
+
+.ms-button-danger:hover:not(:disabled) {
+  box-shadow: var(--ms-shadow-md);
+}
+
+/* Full width */
+.ms-button-full {
+  width: 100%;
+}
+
+/* Loading state */
+.ms-button-loading {
+  pointer-events: none;
+}
+
+.ms-button-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ms-spin 0.6s linear infinite;
+}
+
+@keyframes ms-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ms-button-icon {
+  display: inline-flex;
+  align-items: center;
+}

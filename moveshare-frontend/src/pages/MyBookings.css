@@ -1,0 +1,258 @@
+.my-bookings-page {
+  padding: 2rem 0 4rem;
+  min-height: calc(100vh - 60px);
+}
+
+.my-bookings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.my-bookings-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ms-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.my-bookings-header p {
+  margin: 0;
+  color: var(--ms-muted);
+}
+
+.my-bookings-loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--ms-muted);
+}
+
+.my-bookings-error {
+  padding: 1rem;
+  background: var(--ms-error-light);
+  border: 1px solid var(--ms-error);
+  border-radius: var(--ms-radius);
+  color: var(--ms-error);
+  margin-bottom: 2rem;
+}
+
+.my-bookings-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.my-bookings-empty h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ms-text);
+  margin: 0;
+}
+
+.my-bookings-empty p {
+  margin: 0;
+  color: var(--ms-muted);
+}
+
+.my-bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.booking-card {
+  padding: 1.5rem;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.booking-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.booking-status,
+.ride-status {
+  display: inline-flex;
+  padding: 0.375rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.booking-confirmed {
+  background: var(--ms-success-light);
+  color: var(--ms-success);
+}
+
+.booking-pending {
+  background: var(--ms-warning-light);
+  color: var(--ms-warning);
+}
+
+.booking-cancelled {
+  background: var(--ms-error-light);
+  color: var(--ms-error);
+}
+
+.ride-active {
+  background: var(--ms-primary-light);
+  color: var(--ms-primary);
+}
+
+.ride-completed {
+  background: var(--ms-muted-light);
+  color: var(--ms-muted);
+}
+
+.ride-cancelled {
+  background: var(--ms-error-light);
+  color: var(--ms-error);
+}
+
+.booking-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.booking-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.booking-route {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.booking-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ms-muted);
+  font-size: 0.875rem;
+}
+
+.detail-row svg {
+  flex-shrink: 0;
+}
+
+.booking-price {
+  color: var(--ms-primary);
+  font-weight: 600;
+}
+
+.booking-driver {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+  margin-top: 0.5rem;
+}
+
+.driver-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.driver-info svg {
+  color: var(--ms-primary);
+}
+
+.driver-label {
+  font-size: 0.75rem;
+  color: var(--ms-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.125rem;
+}
+
+.driver-name {
+  font-size: 0.9375rem;
+  color: var(--ms-text);
+  font-weight: 600;
+}
+
+.driver-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--ms-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.booking-vehicle {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ms-border);
+}
+
+.vehicle-label {
+  color: var(--ms-muted);
+}
+
+.vehicle-name {
+  color: var(--ms-text);
+  font-weight: 500;
+}
+
+.cancel-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cancel-modal-content p {
+  margin: 0;
+  color: var(--ms-text);
+}
+
+.cancel-warning {
+  color: var(--ms-error);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 900px) {
+  .my-bookings-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .booking-content {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-driver {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}

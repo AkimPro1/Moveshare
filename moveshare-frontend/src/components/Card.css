@@ -1,0 +1,23 @@
+.ms-card {
+  background: var(--ms-surface);
+  border-radius: var(--ms-radius);
+  padding: var(--ms-space-xl);
+  box-shadow: var(--ms-shadow-sm);
+  border: 1px solid var(--ms-border);
+  transition: transform var(--ms-transition-base), 
+              box-shadow var(--ms-transition-base);
+}
+
+.ms-card-hoverable {
+  cursor: pointer;
+}
+
+.ms-card-hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ms-shadow-lg);
+}
+
+.ms-card-hoverable:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.12);
+  outline-offset: 3px;
+}

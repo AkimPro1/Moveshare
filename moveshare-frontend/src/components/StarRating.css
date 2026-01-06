@@ -1,0 +1,28 @@
+.star-rating {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.star-button {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star-rating-interactive .star-clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.star-rating-interactive .star-clickable:hover {
+  transform: scale(1.1);
+}
+
+.star-rating-interactive .star-clickable:active {
+  transform: scale(0.95);
+}

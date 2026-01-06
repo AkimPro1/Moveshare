@@ -1,0 +1,93 @@
+.ms-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--ms-space-xl);
+  animation: ms-fade-in 0.2s ease;
+}
+
+.ms-modal {
+  background: var(--ms-surface);
+  border-radius: var(--ms-radius);
+  box-shadow: var(--ms-shadow-xl);
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: ms-slide-up 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.ms-modal-sm {
+  width: 100%;
+  max-width: 400px;
+}
+
+.ms-modal-md {
+  width: 100%;
+  max-width: 600px;
+}
+
+.ms-modal-lg {
+  width: 100%;
+  max-width: 800px;
+}
+
+.ms-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ms-space-xl);
+  border-bottom: 1px solid var(--ms-border);
+}
+
+.ms-modal-title {
+  font-size: var(--ms-font-size-xl);
+  font-weight: 700;
+  color: var(--ms-foreground);
+  margin: 0;
+}
+
+.ms-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--ms-muted);
+  cursor: pointer;
+  padding: var(--ms-space-sm);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--ms-transition-fast), color var(--ms-transition-fast);
+}
+
+.ms-modal-close:hover {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--ms-foreground);
+}
+
+.ms-modal-content {
+  padding: var(--ms-space-xl);
+}
+
+@keyframes ms-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ms-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
