@@ -57,7 +57,11 @@ class RideController extends Controller
                 'user_id' => $ride->user_id,
                 'car_id' => $ride->car_id,
                 'start_location' => $ride->start_location,
+                'start_lat' => $ride->start_lat,
+                'start_lng' => $ride->start_lng,
                 'end_location' => $ride->end_location,
+                'end_lat' => $ride->end_lat,
+                'end_lng' => $ride->end_lng,
                 'ride_date' => $ride->ride_date->format('Y-m-d'),
                 'ride_time' => $ride->ride_time,
                 'price_per_seat' => (float) $ride->price_per_seat,
@@ -87,10 +91,19 @@ class RideController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        // Only drivers can create rides
+        if ($request->user()->role !== 'driver') {
+            return response()->json(['message' => 'Unauthorized: Only drivers can create rides'], 403);
+        }
+
         $data = $request->validate([
             'car_id' => ['required', 'exists:vehicles,id'],
             'start_location' => ['required', 'string', 'max:255'],
+            'start_lat' => ['nullable', 'numeric'],
+            'start_lng' => ['nullable', 'numeric'],
             'end_location' => ['required', 'string', 'max:255'],
+            'end_lat' => ['nullable', 'numeric'],
+            'end_lng' => ['nullable', 'numeric'],
             'ride_date' => ['required', 'date', 'after_or_equal:today'],
             'ride_time' => ['required', 'date_format:H:i'],
             'price_per_seat' => ['required', 'numeric', 'min:0'],
@@ -113,7 +126,11 @@ class RideController extends Controller
         $ride = $request->user()->rides()->create([
             'car_id' => $data['car_id'],
             'start_location' => $data['start_location'],
+            'start_lat' => $data['start_lat'] ?? null,
+            'start_lng' => $data['start_lng'] ?? null,
             'end_location' => $data['end_location'],
+            'end_lat' => $data['end_lat'] ?? null,
+            'end_lng' => $data['end_lng'] ?? null,
             'ride_date' => $data['ride_date'],
             'ride_time' => $data['ride_time'],
             'price_per_seat' => $data['price_per_seat'],
@@ -143,7 +160,11 @@ class RideController extends Controller
             'user_id' => $ride->user_id,
             'car_id' => $ride->car_id,
             'start_location' => $ride->start_location,
+            'start_lat' => $ride->start_lat,
+            'start_lng' => $ride->start_lng,
             'end_location' => $ride->end_location,
+            'end_lat' => $ride->end_lat,
+            'end_lng' => $ride->end_lng,
             'ride_date' => $ride->ride_date->format('Y-m-d'),
             'ride_time' => $ride->ride_time,
             'price_per_seat' => (float) $ride->price_per_seat,

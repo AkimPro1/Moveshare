@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Car, MapPin, User, LogOut, Settings, Calendar, BookOpen, Menu, X } from 'lucide-react'
+import { Car, MapPin, User, LogOut, Settings, Calendar, BookOpen, Menu, X, Sparkles, Sun, Moon } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 import axiosClient from '../api/axiosClient'
 import './Header.css'
 
@@ -16,6 +17,7 @@ function initialsFromName(name?: string, email?: string) {
 export default function Header() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { theme, toggleTheme } = useTheme()
   const [initials, setInitials] = useState<string | null>(null)
   const [userName, setUserName] = useState<string | null>(null)
   const [showUserMenu, setShowUserMenu] = useState(false)
@@ -106,12 +108,32 @@ export default function Header() {
               <Settings style={{ width: 18, height: 18 }} />
               Véhicules
             </Link>
+            <Link 
+              to="/entertainment" 
+              className={`ms-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
+            >
+              <Sparkles style={{ width: 18, height: 18 }} />
+              Divertissement
+            </Link>
           </nav>
         )}
 
         <div className="ms-header-actions">
           {!hideAuthLink && (
             <>
+              {/* Theme Toggle */}
+              <button
+                className="ms-theme-toggle"
+                onClick={toggleTheme}
+                aria-label="Basculer le thème"
+              >
+                {theme === 'light' ? (
+                  <Moon style={{ width: 20, height: 20 }} />
+                ) : (
+                  <Sun style={{ width: 20, height: 20 }} />
+                )}
+              </button>
+
               {isLoggedIn && initials ? (
                 <div className="ms-user-menu">
                   <button 
@@ -233,6 +255,14 @@ export default function Header() {
             >
               <Settings style={{ width: 20, height: 20 }} />
               Véhicules
+            </Link>
+            <Link 
+              to="/entertainment" 
+              className={`ms-mobile-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <Sparkles style={{ width: 20, height: 20 }} />
+              Divertissement
             </Link>
           </nav>
         </>

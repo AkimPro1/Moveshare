@@ -23,6 +23,11 @@ class VehicleController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        // Only drivers can create vehicles
+        if ($request->user()->role !== 'driver') {
+            return response()->json(['message' => 'Unauthorized: Only drivers can create vehicles'], 403);
+        }
+
         $data = $request->validate([
             'brand' => ['required', 'string', 'max:255'],
             'model' => ['required', 'string', 'max:255'],
@@ -40,7 +45,8 @@ class VehicleController extends Controller
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $photo) {
                 $path = $photo->store('vehicles', 'public');
-                $photoPaths[] = Storage::url($path);
+                // Use direct API route instead of Storage::url() which requires symlink
+                $photoPaths[] = '/api/files/' . $path;
             }
         }
 
@@ -77,6 +83,11 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle): JsonResponse
     {
+        // Only drivers can update vehicles
+        if ($request->user()->role !== 'driver') {
+            return response()->json(['message' => 'Unauthorized: Only drivers can update vehicles'], 403);
+        }
+
         // Ensure user owns this vehicle
         if ($vehicle->user_id !== $request->user()->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
@@ -99,7 +110,8 @@ class VehicleController extends Controller
             $photoPaths = [];
             foreach ($request->file('photos') as $photo) {
                 $path = $photo->store('vehicles', 'public');
-                $photoPaths[] = Storage::url($path);
+                // Use direct API route instead of Storage::url() which requires symlink
+                $photoPaths[] = '/api/files/' . $path;
             }
             $data['photos'] = $photoPaths;
         }
@@ -114,6 +126,11 @@ class VehicleController extends Controller
      */
     public function destroy(Request $request, Vehicle $vehicle): JsonResponse
     {
+        // Only drivers can delete vehicles
+        if ($request->user()->role !== 'driver') {
+            return response()->json(['message' => 'Unauthorized: Only drivers can delete vehicles'], 403);
+        }
+
         // Ensure user owns this vehicle
         if ($vehicle->user_id !== $request->user()->id) {
             return response()->json(['message' => 'Unauthorized'], 403);

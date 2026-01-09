@@ -3,113 +3,151 @@
   align-items: center;
   justify-content: center;
   gap: var(--ms-space-sm);
-  font-weight: 600;
-  border-radius: 10px;
+  font-weight: var(--ms-font-weight-semibold);
+  border-radius: var(--ms-radius-md);
   border: none;
   cursor: pointer;
-  transition: transform var(--ms-transition-fast), 
-              box-shadow var(--ms-transition-fast), 
-              opacity var(--ms-transition-fast);
-  font-family: inherit;
+  transition: all var(--ms-transition-base);
+  font-family: var(--ms-font-body);
   position: relative;
+  overflow: hidden;
+}
+
+.ms-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left var(--ms-transition-slow);
+}
+
+.ms-button:hover:not(:disabled)::before {
+  left: 100%;
 }
 
 .ms-button:hover:not(:disabled) {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .ms-button:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(-1px);
 }
 
 .ms-button:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .ms-button:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.12);
-  outline-offset: 3px;
+  outline: 3px solid var(--ms-info-light);
+  outline-offset: 2px;
 }
 
-/* Sizes */
+/* ✨ SIZES */
 .ms-button-sm {
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-size: var(--ms-font-size-sm);
+  gap: var(--ms-space-xs);
 }
 
 .ms-button-md {
-  padding: 10px 16px;
+  padding: 11px 18px;
   font-size: var(--ms-font-size-base);
 }
 
 .ms-button-lg {
-  padding: 12px 20px;
+  padding: 14px 24px;
   font-size: var(--ms-font-size-lg);
 }
 
-/* Variants */
+/* 🎨 VARIANTS - MODERN GRADIENTS */
 .ms-button-primary {
-  background: var(--ms-accent);
+  background: linear-gradient(135deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
   color: white;
+  box-shadow: var(--ms-shadow-md);
 }
 
 .ms-button-primary:hover:not(:disabled) {
-  box-shadow: var(--ms-shadow-md);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+  transform: translateY(-3px);
 }
 
 .ms-button-secondary {
-  background: var(--ms-primary);
+  background: linear-gradient(135deg, var(--ms-secondary) 0%, var(--ms-secondary-light) 100%);
   color: white;
-}
-
-.ms-button-secondary:hover:not(:disabled) {
   box-shadow: var(--ms-shadow-md);
 }
 
+.ms-button-secondary:hover:not(:disabled) {
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+  transform: translateY(-3px);
+}
+
 .ms-button-outline {
-  background: transparent;
-  border: 1px solid var(--ms-border);
+  background: var(--ms-surface);
+  border: 1.5px solid var(--ms-border);
   color: var(--ms-foreground);
+  position: relative;
+  z-index: 1;
+}
+
+.ms-button-outline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--ms-primary-light), transparent);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--ms-transition-base);
+  z-index: -1;
 }
 
 .ms-button-outline:hover:not(:disabled) {
-  background: rgba(37, 99, 235, 0.04);
-  border-color: var(--ms-accent);
+  border-color: var(--ms-primary);
+  color: var(--ms-primary);
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);
 }
 
 .ms-button-ghost {
   background: transparent;
-  color: var(--ms-muted);
-}
-
-.ms-button-ghost:hover:not(:disabled) {
-  background: rgba(37, 99, 235, 0.06);
   color: var(--ms-foreground);
 }
 
-.ms-button-danger {
-  background: var(--ms-error);
-  color: white;
+.ms-button-ghost:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--ms-primary);
 }
 
-.ms-button-danger:hover:not(:disabled) {
+.ms-button-danger {
+  background: linear-gradient(135deg, var(--ms-error) 0%, #f87171 100%);
+  color: white;
   box-shadow: var(--ms-shadow-md);
 }
 
-/* Full width */
+.ms-button-danger:hover:not(:disabled) {
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+  transform: translateY(-3px);
+}
+
+/* FULL WIDTH */
 .ms-button-full {
   width: 100%;
 }
 
-/* Loading state */
+/* LOADING STATE */
 .ms-button-loading {
   pointer-events: none;
 }
 
 .ms-button-spinner {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border: 2px solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
@@ -123,4 +161,5 @@
 .ms-button-icon {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }

@@ -1,0 +1,17 @@
+[
+  {"question":"Quel est le plus grand océan du monde?","options":["Atlantique","Pacifique","Indien","Arctique"],"correct":1},
+  {"question":"En quelle année l'homme a-t-il marché sur la Lune?","options":["1965","1969","1972","1960"],"correct":1},
+  {"question":"Quel est le plus haut sommet du monde?","options":["K2","Mont-Blanc","Mont Everest","Aconcagua"],"correct":2},
+  {"question":"Quel est le plus grand désert chaud du monde?","options":["Sahara","Gobi","Kalahari","Patagonie"],"correct":0},
+  {"question":"Quelle est la capitale de la France?","options":["Lyon","Paris","Marseille","Bordeaux"],"correct":1},
+  {"question":"Quelle est la monnaie officielle du Japon?","options":["Yuan","Won","Yen","Dollar"],"correct":2},
+  {"question":"Quel élément chimique a pour symbole 'O'?","options":["Or","Oxygène","Osmium","Oganesson"],"correct":1},
+  {"question":"Combien de continents y a-t-il sur Terre?","options":["5","6","7","8"],"correct":2},
+  {"question":"Quel pays a remporté la Coupe du Monde FIFA 2018?","options":["Brésil","Allemagne","France","Argentine"],"correct":2},
+  {"question":"Quel est l'organe principal de la respiration chez l'humain?","options":["Coeur","Foie","Poumons","Reins"],"correct":2},
+  {"question":"Quel est le langage de programmation principalement utilisé pour le développement iOS?","options":["Java","Kotlin","Swift","C#"],"correct":2},
+  {"question":"Quelle planète est la plus proche du Soleil?","options":["Vénus","Terre","Mercure","Mars"],"correct":2},
+  {"question":"Qui a peint la 'Joconde'?","options":["Van Gogh","Leonardo da Vinci","Picasso","Michel-Ange"],"correct":1},
+  {"question":"Quel pays est connu pour le mont Fuji?","options":["Chine","Corée du Sud","Japon","Inde"],"correct":2},
+  {"question":"Quel gaz est essentiel pour la photosynthèse des plantes?","options":["Oxygène","Azote","Dioxyde de carbone","Hélium"],"correct":2}
+]

@@ -35,7 +35,17 @@ export const ridesApi = {
   
   // Create new ride
   createRide: async (data: CreateRideForm): Promise<Ride> => {
-    const response = await axiosClient.post('/rides', data)
+    // Convert string values to numbers
+    const payload = {
+      ...data,
+      price_per_seat: parseFloat(data.price_per_seat),
+      available_seats: parseInt(data.available_seats),
+      start_lat: data.start_lat ? parseFloat(data.start_lat.toString()) : null,
+      start_lng: data.start_lng ? parseFloat(data.start_lng.toString()) : null,
+      end_lat: data.end_lat ? parseFloat(data.end_lat.toString()) : null,
+      end_lng: data.end_lng ? parseFloat(data.end_lng.toString()) : null,
+    }
+    const response = await axiosClient.post('/rides', payload)
     return response.data
   },
   

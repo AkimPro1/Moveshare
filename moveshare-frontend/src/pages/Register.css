@@ -3,8 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, var(--ms-bg) 0%, var(--ms-bg-secondary) 100%);
   padding: 2rem 1rem;
+  transition: background 0.3s ease;
 }
 
 .register-container {
@@ -18,7 +19,10 @@
 
 .register-card {
   padding: 2.5rem 2rem;
-  background: white;
+  background: var(--ms-surface);
+  transition: background-color 0.3s ease;
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius-lg);
 }
 
 .register-header {
@@ -90,9 +94,10 @@
 
 .register-benefits {
   padding: 2rem;
-  background: white;
+  background: var(--ms-surface);
   border-radius: var(--ms-radius-lg);
   box-shadow: var(--ms-shadow-md);
+  border: 1px solid var(--ms-border);
 }
 
 .register-benefits h2 {

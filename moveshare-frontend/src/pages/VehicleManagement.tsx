@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Car, Plus, Edit, Trash2, Camera, BadgeCheck } from 'lucide-react'
 import { vehicleApi } from '../api/vehicleApi'
 import { Vehicle, VehicleForm, VehicleType } from '../types'
+import { getVehicleImageUrl } from '../utils/urls'
 import { getVehicleTypeLabel, getVerificationStatusLabel } from '../utils/formatters'
 import Button from '../components/Button'
 import Card from '../components/Card'
@@ -79,7 +80,8 @@ export default function VehicleManagement() {
       vehicle_type: vehicle.vehicle_type,
       photos: []
     })
-    setPhotoPreviews(vehicle.photos)
+    // Set photo previews with full URLs for existing photos
+    setPhotoPreviews(vehicle.photos.map(p => getVehicleImageUrl(p)))
     setShowModal(true)
   }
 
@@ -187,7 +189,7 @@ export default function VehicleManagement() {
                 <div className="vehicle-photos">
                   {vehicle.photos.length > 0 ? (
                     <img 
-                      src={vehicle.photos[0]} 
+                      src={getVehicleImageUrl(vehicle.photos[0])} 
                       alt={`${vehicle.brand} ${vehicle.model}`}
                       className="vehicle-photo"
                     />

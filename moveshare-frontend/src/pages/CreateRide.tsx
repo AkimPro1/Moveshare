@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { MapPin, Calendar, Clock, DollarSign, Users, Car } from 'lucide-react'
 import { ridesApi } from '../api/ridesApi'
 import { vehicleApi } from '../api/vehicleApi'
+import { geocodingService } from '../api/geocodingService'
 import { Vehicle, CreateRideForm } from '../types'
 import Input from '../components/Input'
 import Select from '../components/Select'
+import AddressAutocomplete from '../components/AddressAutocomplete'
+import CoordinateVerifier from '../components/CoordinateVerifier'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import './CreateRide.css'
@@ -49,6 +52,7 @@ export default function CreateRide() {
     setLoading(true)
 
     try {
+      // Coordinates are already in the form state thanks to AddressAutocomplete
       await ridesApi.createRide(form)
       setSuccess(true)
       setTimeout(() => {
@@ -115,23 +119,49 @@ export default function CreateRide() {
                   required
                 />
 
-                <Input
+                <AddressAutocomplete
                   label="Lieu de départ"
-                  placeholder="Paris, France"
-                  icon={<MapPin style={{ width: 18, height: 18 }} />}
+                  placeholder="Ex: Lomé, Togo"
                   value={form.start_location}
-                  onChange={(e) => setForm({ ...form, start_location: e.target.value })}
+                  onChange={(address, lat, lon) => setForm({ 
+                    ...form, 
+                    start_location: address,
+                    start_lat: lat,
+                    start_lng: lon
+                  })}
                   required
                 />
 
-                <Input
+                {form.start_location && (
+                  <CoordinateVerifier
+                    address={form.start_location}
+                    latitude={form.start_lat}
+                    longitude={form.start_lng}
+                    onConfirm={(lat, lng) => setForm({ ...form, start_lat: lat, start_lng: lng })}
+                  />
+                )}
+
+                <AddressAutocomplete
                   label="Destination"
-                  placeholder="Lyon, France"
-                  icon={<MapPin style={{ width: 18, height: 18 }} />}
+                  placeholder="Ex: Kara, Togo"
                   value={form.end_location}
-                  onChange={(e) => setForm({ ...form, end_location: e.target.value })}
+                  onChange={(address, lat, lon) => setForm({ 
+                    ...form, 
+                    end_location: address,
+                    end_lat: lat,
+                    end_lng: lon
+                  })}
                   required
                 />
+
+                {form.end_location && (
+                  <CoordinateVerifier
+                    address={form.end_location}
+                    latitude={form.end_lat}
+                    longitude={form.end_lng}
+                    onConfirm={(lat, lng) => setForm({ ...form, end_lat: lat, end_lng: lng })}
+                  />
+                )}
 
                 <Input
                   label="Date du trajet"

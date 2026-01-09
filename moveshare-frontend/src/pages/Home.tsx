@@ -438,7 +438,7 @@ export default function Home() {
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2024 MoveShare. Tous droits réservés.</p>
+            <p>&copy; 2024 MoveShare. </p>
           </div>
         </div>
       </footer>

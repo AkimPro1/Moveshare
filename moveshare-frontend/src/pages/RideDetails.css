@@ -133,6 +133,40 @@
   width: 100%;
 }
 
+.ride-map-card {
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.map-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--ms-bg-secondary);
+  border-radius: var(--ms-radius);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ms-text);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.start { background-color: var(--ms-primary); }
+.legend-dot.current { background-color: var(--ms-accent); }
+.legend-dot.end { background-color: var(--ms-muted); }
+
 .vehicle-card h2,
 .passengers-card h2,
 .driver-card h2,
@@ -348,7 +382,7 @@
   border-radius: var(--ms-radius);
   font-size: 0.9375rem;
   color: var(--ms-text);
-  background: white;
+  background: var(--ms-surface);
   cursor: pointer;
 }
 
@@ -373,6 +407,59 @@
 .total-price {
   font-size: 1.5rem;
   color: var(--ms-primary);
+}
+
+.payment-method-selector {
+  margin-top: 1rem;
+}
+
+.payment-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  cursor: pointer;
+  transition: all var(--ms-transition-base);
+}
+
+.payment-option:hover {
+  background: var(--ms-bg-secondary);
+  border-color: var(--ms-primary-light);
+}
+
+.payment-option.active {
+  border-color: var(--ms-primary);
+  background: var(--ms-info-light);
+}
+
+.payment-option input {
+  width: 18px;
+  height: 18px;
+}
+
+.payment-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--ms-text);
+}
+
+.phone-number-input {
+  margin-top: 1rem;
+}
+
+.input-hint {
+  font-size: 0.75rem;
+  color: var(--ms-muted);
+  margin-top: 0.5rem;
 }
 
 .review-driver-info {

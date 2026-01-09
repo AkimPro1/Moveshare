@@ -1,11 +1,30 @@
 .ms-card {
   background: var(--ms-surface);
-  border-radius: var(--ms-radius);
+  border-radius: var(--ms-radius-lg);
   padding: var(--ms-space-xl);
-  box-shadow: var(--ms-shadow-sm);
+  box-shadow: var(--ms-shadow-md);
   border: 1px solid var(--ms-border);
-  transition: transform var(--ms-transition-base), 
-              box-shadow var(--ms-transition-base);
+  transition: all var(--ms-transition-base);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient border effect */
+.ms-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ms-primary), transparent);
+  opacity: 0;
+  transition: opacity var(--ms-transition-base);
+}
+
+.ms-card:hover::before {
+  opacity: 1;
 }
 
 .ms-card-hoverable {
@@ -13,11 +32,17 @@
 }
 
 .ms-card-hoverable:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--ms-shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.15);
+  border-color: rgba(0, 212, 255, 0.3);
 }
 
 .ms-card-hoverable:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.12);
-  outline-offset: 3px;
+  outline: 3px solid var(--ms-info-light);
+  outline-offset: 2px;
+}
+
+/* Card with gradient background */
+.ms-card-gradient {
+  background: linear-gradient(135deg, var(--ms-surface) 0%, rgba(0, 212, 255, 0.02) 100%);
 }

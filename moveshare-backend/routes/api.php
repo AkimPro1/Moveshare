@@ -7,6 +7,8 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\RideController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TrackingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,17 @@ Route::middleware('auth:sanctum')->get('/me', [AuthController::class, 'me']);
 Route::get('/ping', function () {
 	return response()->json(['status' => 'ok']);
 });
+
+// Serve uploaded files (images, documents) - PUBLIC
+Route::get('/files/{path}', function ($path) {
+	$full_path = storage_path('app/public/' . $path);
+	
+	if (!file_exists($full_path)) {
+		return response()->json(['message' => 'File not found'], 404);
+	}
+	
+	return response()->file($full_path);
+})->where('path', '.*');
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -52,4 +65,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users/{userId}/reviews', [ReviewController::class, 'getUserReviews']);
     Route::post('/reviews', [ReviewController::class, 'store']);
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+    
+    // Payment routes
+    Route::post('/payments/process', [PaymentController::class, 'processPayment']);
+    Route::get('/payments/history', [PaymentController::class, 'getPaymentHistory']);
+    Route::post('/payments/{booking}/cancel', [PaymentController::class, 'cancelPayment']);
+    
+    // Tracking routes
+    Route::get('/rides/{ride}/tracking', [TrackingController::class, 'getRideTracking']);
+    Route::post('/rides/{ride}/position', [TrackingController::class, 'updatePosition']);
+    Route::get('/rides/history', [TrackingController::class, 'getRideHistory']);
 });

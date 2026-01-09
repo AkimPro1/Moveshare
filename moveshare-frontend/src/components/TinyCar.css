@@ -1,0 +1,186 @@
+.tiny-car-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  perspective: 1200px;
+  overflow: hidden;
+}
+
+.tiny-car-3d {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  top: -20px;
+  left: -40px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: auto; /* Allow interaction */
+  user-select: none;
+  touch-action: none; /* Prevent scrolling while dragging */
+}
+
+.tiny-car-3d.dragging {
+  filter: brightness(1.1);
+}
+
+/* Common Face Styles */
+.face {
+  position: absolute;
+  background: var(--ms-primary, #3b82f6);
+  border: 0.5px solid rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+/* --- CAR BASE (Lower Part) --- */
+.car-base {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  transform-style: preserve-3d;
+}
+
+.car-base .face.front {
+  width: 40px;
+  height: 25px;
+  transform: rotateY(-90deg) translateZ(0px);
+  background: var(--ms-primary-dark, #1d4ed8);
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding-bottom: 4px;
+}
+
+.car-base .face.back {
+  width: 40px;
+  height: 25px;
+  transform: rotateY(90deg) translateZ(-80px);
+  background: var(--ms-primary-dark, #1d4ed8);
+}
+
+.car-base .face.left {
+  width: 80px;
+  height: 25px;
+  transform: rotateY(0deg) translateZ(0px);
+}
+
+.car-base .face.right {
+  width: 80px;
+  height: 25px;
+  transform: rotateY(180deg) translateZ(40px);
+}
+
+.car-base .face.top {
+  width: 80px;
+  height: 40px;
+  transform: rotateX(90deg) translateZ(12.5px);
+  background: #60a5fa;
+}
+
+.car-base .face.bottom {
+  width: 80px;
+  height: 40px;
+  transform: rotateX(-90deg) translateZ(12.5px);
+  background: #111;
+}
+
+/* --- CAR CABIN (Top Part) --- */
+.car-cabin {
+  position: absolute;
+  width: 40px;
+  height: 30px;
+  top: 5px;
+  left: 15px;
+  transform: translateZ(12.5px);
+  transform-style: preserve-3d;
+}
+
+.car-cabin .face.front {
+  width: 30px;
+  height: 20px;
+  transform: rotateY(-90deg) translateZ(0px);
+  background: #2563eb;
+}
+
+.car-cabin .face.back {
+  width: 30px;
+  height: 20px;
+  transform: rotateY(90deg) translateZ(-40px);
+  background: #2563eb;
+}
+
+.car-cabin .face.left {
+  width: 40px;
+  height: 20px;
+  transform: rotateY(0deg) translateZ(0px);
+}
+
+.car-cabin .face.right {
+  width: 40px;
+  height: 20px;
+  transform: rotateY(180deg) translateZ(30px);
+}
+
+.car-cabin .face.top {
+  width: 40px;
+  height: 30px;
+  transform: rotateX(90deg) translateZ(10px);
+  background: #93c5fd;
+}
+
+/* Windows */
+.window {
+  width: 80%;
+  height: 70%;
+  margin: 15% auto;
+  background: rgba(200, 230, 255, 0.7);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Headlights */
+.headlight {
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 10px #fff;
+}
+
+/* --- WHEELS --- */
+.wheel-3d {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #111;
+  border-radius: 50%;
+  border: 3px solid #333;
+  transform-style: preserve-3d;
+}
+
+/* Correct positioning on the sides of the base */
+.wheel-3d.fl { transform: translate3d(10px, -6px, 0px) rotateY(90deg); }
+.wheel-3d.fr { transform: translate3d(10px, 28px, 0px) rotateY(90deg); }
+.wheel-3d.bl { transform: translate3d(55px, -6px, 0px) rotateY(90deg); }
+.wheel-3d.br { transform: translate3d(55px, 28px, 0px) rotateY(90deg); }
+
+/* --- SHADOW --- */
+.car-shadow-3d {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 90px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.25);
+  filter: blur(10px);
+  transform: translateZ(-15px);
+  border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiny-car-3d {
+    transition: none;
+  }
+}

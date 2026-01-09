@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { MapPin, Calendar, Clock, DollarSign, Users, Search, Filter } from 'lucide-react'
 import { ridesApi } from '../api/ridesApi'
 import { Ride } from '../types'
@@ -9,6 +10,7 @@ import Card from '../components/Card'
 import './RidesList.css'
 
 export default function RidesList() {
+  const navigate = useNavigate()
   const [rides, setRides] = useState<Ride[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -83,6 +85,7 @@ export default function RidesList() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
+
             <Input
               type="date"
               icon={<Calendar style={{ width: 18, height: 18 }} />}
@@ -118,7 +121,7 @@ export default function RidesList() {
         ) : (
           <div className="rides-grid">
             {filteredRides.map((ride) => (
-              <Card key={ride.id} className="ride-card" hoverable>
+              <Card key={ride.id} className="ride-card" hoverable onClick={() => navigate(`/rides/${ride.id}`)}>
                 <div className="ride-route">
                   <div className="ride-location">
                     <MapPin style={{ width: 20, height: 20, color: 'var(--ms-primary)' }} />
@@ -135,20 +138,21 @@ export default function RidesList() {
                       <div className="location-value">{ride.end_location}</div>
                     </div>
                   </div>
-                </div>
+                  <div className="ride-details">
+                    <div className="ride-detail">
+                      <Calendar style={{ width: 16, height: 16 }} />
+                      <span>{formatDate(ride.ride_date)}</span>
+                    </div>
 
-                <div className="ride-details">
-                  <div className="ride-detail">
-                    <Calendar style={{ width: 16, height: 16 }} />
-                    <span>{formatDate(ride.ride_date)}</span>
-                  </div>
-                  <div className="ride-detail">
-                    <Clock style={{ width: 16, height: 16 }} />
-                    <span>{formatTime(ride.ride_time)}</span>
-                  </div>
-                  <div className="ride-detail">
-                    <Users style={{ width: 16, height: 16 }} />
-                    <span>{ride.available_seats} places restantes</span>
+                    <div className="ride-detail">
+                      <Clock style={{ width: 16, height: 16 }} />
+                      <span>{formatTime(ride.ride_time)}</span>
+                    </div>
+
+                    <div className="ride-detail">
+                      <Users style={{ width: 16, height: 16 }} />
+                      <span>{ride.available_seats} places restantes</span>
+                    </div>
                   </div>
                 </div>
 
@@ -171,7 +175,7 @@ export default function RidesList() {
                     <span className="price-label">/ place</span>
                   </div>
                   <Button 
-                    onClick={() => handleBookRide(ride.id)}
+                    onClick={(e: any) => { e.stopPropagation(); handleBookRide(ride.id) }}
                     size="sm"
                   >
                     Réserver

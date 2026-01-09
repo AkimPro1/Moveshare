@@ -27,7 +27,11 @@ export interface Ride {
   user_id: number
   car_id: number
   start_location: string
+  start_lat?: number
+  start_lng?: number
   end_location: string
+  end_lat?: number
+  end_lng?: number
   ride_date: string
   ride_time: string
   price_per_seat: number
@@ -52,7 +56,11 @@ export interface Ride {
 export interface CreateRideForm {
   car_id: string
   start_location: string
+  start_lat?: number
+  start_lng?: number
   end_location: string
+  end_lat?: number
+  end_lng?: number
   ride_date: string
   ride_time: string
   price_per_seat: string

@@ -2,9 +2,11 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: white;
+  background: linear-gradient(135deg, var(--ms-surface) 0%, rgba(0, 212, 255, 0.02) 100%);
   border-bottom: 1px solid var(--ms-border);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.08);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
 .ms-global-inner {
@@ -20,13 +22,17 @@
   gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 800;
-  color: var(--ms-primary);
+  background: linear-gradient(135deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .ms-logo:hover {
-  color: var(--ms-accent);
+  transform: translateX(4px);
+  filter: brightness(1.1);
 }
 
 .ms-nav-desktop {
@@ -40,23 +46,42 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: var(--ms-radius);
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--ms-radius-md);
   color: var(--ms-muted);
   text-decoration: none;
   font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  position: relative;
+}
+
+.ms-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1.1rem;
+  right: 1.1rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .ms-nav-link:hover {
-  background: var(--ms-bg-secondary);
-  color: var(--ms-text);
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--ms-primary);
 }
 
 .ms-nav-link.active {
-  background: var(--ms-primary-light);
+  background: rgba(0, 212, 255, 0.15);
   color: var(--ms-primary);
+}
+
+.ms-nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .ms-header-actions {
@@ -67,18 +92,39 @@
 }
 
 .ms-login-button {
-  padding: 0.5rem 1.25rem;
-  background: var(--ms-primary);
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
   color: white;
-  border-radius: var(--ms-radius);
+  border-radius: var(--ms-radius-md);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
-  transition: background 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.25);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.ms-login-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .ms-login-button:hover {
-  background: var(--ms-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.35);
+}
+
+.ms-login-button:hover::before {
+  left: 100%;
 }
 
 /* User Menu */
@@ -92,19 +138,21 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
   color: white;
-  border: none;
+  border: 2px solid rgba(0, 212, 255, 0.3);
   font-weight: 600;
   font-size: 0.875rem;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
 }
 
 .ms-avatar-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(14, 165, 164, 0.3);
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+  border-color: rgba(0, 212, 255, 0.6);
 }
 
 .ms-menu-backdrop {
@@ -120,13 +168,15 @@
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  min-width: 240px;
-  background: white;
+  min-width: 260px;
+  background: var(--ms-surface);
   border-radius: var(--ms-radius-lg);
-  box-shadow: var(--ms-shadow-lg);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
   border: 1px solid var(--ms-border);
   z-index: 100;
-  animation: slideDown 0.2s ease;
+  animation: slideDown 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
 @keyframes slideDown {
@@ -191,7 +241,7 @@
   align-items: center;
   gap: 0.75rem;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   background: none;
   border: none;
   color: var(--ms-text);
@@ -199,12 +249,31 @@
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   text-align: left;
+  position: relative;
+}
+
+.ms-dropdown-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .ms-dropdown-item:hover {
-  background: var(--ms-bg-secondary);
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--ms-primary);
+}
+
+.ms-dropdown-item:hover::before {
+  transform: scaleY(1);
 }
 
 .ms-dropdown-item-danger {
@@ -212,7 +281,8 @@
 }
 
 .ms-dropdown-item-danger:hover {
-  background: var(--ms-error-light);
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--ms-error);
 }
 
 /* Mobile Menu */
@@ -263,13 +333,14 @@
     top: 64px;
     left: 0;
     right: 0;
-    background: white;
-    border-bottom: 1px solid var(--ms-border);
-    box-shadow: var(--ms-shadow-lg);
+    background: linear-gradient(180deg, #ffffff 0%, rgba(0, 212, 255, 0.02) 100%);
+    border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     z-index: 99;
-    animation: slideDown 0.2s ease;
+    animation: slideDown 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     max-height: calc(100vh - 64px);
     overflow-y: auto;
+    backdrop-filter: blur(10px);
   }
 
   .ms-mobile-nav-link {
@@ -281,17 +352,40 @@
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    border-bottom: 1px solid var(--ms-border);
-    transition: background 0.2s ease;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    position: relative;
+  }
+
+  .ms-mobile-nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--ms-primary) 0%, var(--ms-accent) 100%);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
   .ms-mobile-nav-link:hover {
-    background: var(--ms-bg-secondary);
+    background: rgba(0, 212, 255, 0.08);
+    color: var(--ms-primary);
+  }
+
+  .ms-mobile-nav-link:hover::before {
+    transform: scaleY(1);
   }
 
   .ms-mobile-nav-link.active {
-    background: var(--ms-primary-light);
+    background: rgba(0, 212, 255, 0.15);
     color: var(--ms-primary);
+  }
+
+  .ms-mobile-nav-link.active::before {
+    transform: scaleY(1);
   }
 
   .ms-global-inner {
@@ -302,4 +396,42 @@
   .ms-logo {
     font-size: 1.1rem;
   }
+}
+
+/* 🌙 THEME TOGGLE BUTTON */
+.ms-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: 2px solid var(--ms-border);
+  border-radius: var(--ms-radius-md);
+  color: var(--ms-muted);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  position: relative;
+}
+
+.ms-theme-toggle:hover {
+  color: var(--ms-primary);
+  border-color: var(--ms-primary);
+  background: rgba(0, 212, 255, 0.08);
+  transform: scale(1.05);
+}
+
+.ms-theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.ms-theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.ms-theme-toggle:hover svg {
+  transform: rotate(180deg);
 }

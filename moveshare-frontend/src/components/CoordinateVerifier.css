@@ -1,0 +1,69 @@
+.coordinate-verifier {
+  display: flex;
+  align-items: center;
+  gap: var(--ms-space-md);
+  padding: var(--ms-space-md);
+  background: rgba(37, 99, 235, 0.05);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 8px;
+  font-size: var(--ms-font-size-sm);
+}
+
+.coordinate-verifier.warning {
+  background: rgba(245, 158, 11, 0.05);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: var(--ms-muted);
+}
+
+.coordinate-display {
+  display: flex;
+  align-items: center;
+  gap: var(--ms-space-sm);
+  flex: 1;
+  color: var(--ms-foreground);
+}
+
+.coordinate-display svg {
+  color: var(--ms-accent);
+  flex-shrink: 0;
+}
+
+.coordinate-display .address {
+  font-weight: 500;
+}
+
+.coordinate-display .coords {
+  color: var(--ms-muted);
+  font-size: var(--ms-font-size-xs);
+  font-family: monospace;
+  margin-left: auto;
+}
+
+.coords-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ms-space-lg);
+}
+
+.coords-form .help-text {
+  font-size: var(--ms-font-size-xs);
+  color: var(--ms-muted);
+  margin: 0;
+}
+
+.coords-form .help-text a {
+  color: var(--ms-accent);
+  text-decoration: none;
+}
+
+.coords-form .help-text a:hover {
+  text-decoration: underline;
+}
+
+.coords-form .modal-actions {
+  display: flex;
+  gap: var(--ms-space-md);
+  justify-content: flex-end;
+  padding-top: var(--ms-space-lg);
+  border-top: 1px solid var(--ms-border);
+}
