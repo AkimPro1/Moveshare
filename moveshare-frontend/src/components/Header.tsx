@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Car, MapPin, User, LogOut, Settings, Calendar, BookOpen, Menu, X, Sparkles, Sun, Moon } from 'lucide-react'
+import { Car, MapPin, User, LogOut, Settings, Calendar, BookOpen, Menu, X, Sparkles, Sun, Moon, Shield } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import axiosClient from '../api/axiosClient'
 import './Header.css'
@@ -20,6 +20,7 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme()
   const [initials, setInitials] = useState<string | null>(null)
   const [userName, setUserName] = useState<string | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
 
@@ -45,9 +46,11 @@ export default function Header() {
         const init = initialsFromName(name, email)
         setInitials(init || null)
         setUserName(name || email || null)
+        setIsAdmin(!!user?.is_admin)
       } catch (e) {
         setInitials(null)
         setUserName(null)
+        setIsAdmin(false)
       }
     })()
 
@@ -115,6 +118,15 @@ export default function Header() {
               <Sparkles style={{ width: 18, height: 18 }} />
               Divertissement
             </Link>
+            {isAdmin && (
+              <Link 
+                to="/admin" 
+                className={`ms-nav-link ${pathname === '/admin' ? 'active' : ''}`}
+              >
+                <Shield style={{ width: 18, height: 18 }} />
+                Administration
+              </Link>
+            )}
           </nav>
         )}
 
@@ -264,6 +276,16 @@ export default function Header() {
               <Sparkles style={{ width: 20, height: 20 }} />
               Divertissement
             </Link>
+            {isAdmin && (
+              <Link 
+                to="/admin" 
+                className={`ms-mobile-nav-link ${pathname === '/admin' ? 'active' : ''}`}
+                onClick={() => setShowMobileMenu(false)}
+              >
+                <Shield style={{ width: 20, height: 20 }} />
+                Administration
+              </Link>
+            )}
           </nav>
         </>
       )}

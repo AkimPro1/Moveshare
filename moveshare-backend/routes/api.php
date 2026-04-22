@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -75,4 +77,27 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/rides/{ride}/tracking', [TrackingController::class, 'getRideTracking']);
     Route::post('/rides/{ride}/position', [TrackingController::class, 'updatePosition']);
     Route::get('/rides/history', [TrackingController::class, 'getRideHistory']);
+
+    // Notification routes
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::get('/notifications/unread', [NotificationController::class, 'unread']);
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy']);
+
+    // Admin routes
+    Route::middleware('admin')->prefix('admin')->group(function () {
+        Route::get('/stats', [AdminController::class, 'stats']);
+        Route::get('/users', [AdminController::class, 'users']);
+        Route::delete('/users/{user}', [AdminController::class, 'deleteUser']);
+        Route::post('/users/{user}/toggle-admin', [AdminController::class, 'toggleAdmin']);
+        Route::get('/vehicles', [AdminController::class, 'vehicles']);
+        Route::post('/vehicles/{vehicle}/verify', [AdminController::class, 'verifyVehicle']);
+        Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle']);
+        Route::get('/rides', [AdminController::class, 'rides']);
+        Route::post('/rides/{ride}/cancel', [AdminController::class, 'cancelRide']);
+        Route::delete('/rides/{ride}', [AdminController::class, 'deleteRide']);
+        Route::get('/reviews', [AdminController::class, 'reviews']);
+        Route::delete('/reviews/{review}', [AdminController::class, 'deleteReview']);
+    });
 });

@@ -1,14 +1,7 @@
 import { useState } from 'react'
-import { BookOpen, Lightbulb, Newspaper, Gamepad2, Film, X } from 'lucide-react'
+import { BookOpen, Lightbulb, Newspaper, Gamepad2, X } from 'lucide-react'
 import { SnakeGame, MatchstickGame, TriviaGame } from '../components/Games'
 import '../styles/Entertainment.css'
-
-interface Video {
-  id: string
-  title: string
-  videoId: string
-  thumbnail: string
-}
 
 interface Story {
   id: string
@@ -37,39 +30,10 @@ interface NewsItem {
 }
 
 export default function Entertainment() {
-  const [activeTab, setActiveTab] = useState<'youtube' | 'stories' | 'funfacts' | 'news' | 'games'>('youtube')
+  const [activeTab, setActiveTab] = useState<'stories' | 'funfacts' | 'news' | 'games'>('stories')
   const [activeGame, setActiveGame] = useState<'snake' | 'matchstick' | 'trivia' | null>(null)
   const [selectedStory, setSelectedStory] = useState<Story | null>(null)
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null)
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null)
-
-  // YouTube videos
-  const youtubeVideos: Video[] = [
-    {
-      id: '1',
-      title: 'Road Trip Vlog - Scenic Drives',
-      videoId: 'dQw4w9WgXcQ',
-      thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'
-    },
-    {
-      id: '2',
-      title: 'Travel Playlist - Best Songs for Driving',
-      videoId: '9bZkp7q19f0',
-      thumbnail: 'https://img.youtube.com/vi/9bZkp7q19f0/hqdefault.jpg'
-    },
-    {
-      id: '3',
-      title: 'Car Maintenance Tips',
-      videoId: 'jNQXAC9IVRw',
-      thumbnail: 'https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg'
-    },
-    {
-      id: '4',
-      title: 'Amazing Road Adventures',
-      videoId: 'kJQDjnMrIEU',
-      thumbnail: 'https://img.youtube.com/vi/kJQDjnMrIEU/hqdefault.jpg'
-    }
-  ]
 
   // Histoires courtes complètes
   const stories: Story[] = [
@@ -145,7 +109,7 @@ Le passager doit agir avec prudence. Il ne sait pas si le chauffeur est réellem
 
 Durant les heures suivantes, assis dans cette voiture qui roule toujours, il écoute le chauffeur parler. Et graduellement, une histoire différente émerge. Une histoire d'amour, de jalousie, de malentendus et d'une justice imparfaite.
 
-Le chauffeur explique comment il a été accusé à tort, comment les vraies preuves ont été ignorées, comment il a dû fuir car personne ne le croyait. Pendant dix ans, il a roulé, se cachant en plain sight, attendant le jour où quelqu'un l'écouterait vraiment.
+Le chauffeur explique comment il a été accusé à tort, comment les vraies preuves ont été ignorées, comment il a dû fuir car personne ne le croyait. Pendant dix ans, he a roulé, se cachant en plain sight, attendant le jour où quelqu'un l'écouterait vraiment.
 
 Le passager le croit. Ou peut-être veut-il simplement le croire. Ils arrivent à Marseille. Le chauffeur remet tout ce qu'il a entre les mains du passager, confiant qu'enfin, quelqu'un pourrait faire justice.
 
@@ -300,9 +264,7 @@ Pour les voyageurs fréquents:
 
 Applications de l'IA en cours de développement:
 - Algorithmes de jumelage prédictifs qui optimisent les trajets
-- Systèmes de tarification dynamique basés sur la demande réelle
-- Prévention des fraudes en temps réel
-- Optimisation des itinéraires pour réduire les émissions
+- Systèmes de tari
 - Chatbots de support client disponibles 24/7
 
 Impact économique:
@@ -353,13 +315,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
         {/* Tabs */}
         <div className="entertainment-tabs">
           <button
-            className={`entertainment-tab ${activeTab === 'youtube' ? 'active' : ''}`}
-            onClick={() => setActiveTab('youtube')}
-          >
-            <Film style={{ width: 20, height: 20 }} />
-            <span>YouTube</span>
-          </button>
-          <button
             className={`entertainment-tab ${activeTab === 'stories' ? 'active' : ''}`}
             onClick={() => setActiveTab('stories')}
           >
@@ -391,40 +346,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
 
         {/* Content */}
         <div className="entertainment-content">
-          {/* YouTube Section */}
-          {activeTab === 'youtube' && (
-            <div className="entertainment-section">
-              <h2>🎬 Vidéos YouTube Populaires</h2>
-              <div className="entertainment-grid">
-                {youtubeVideos.map((video) => (
-                  <div key={video.id} className="video-card">
-                    <div className="video-thumbnail">
-                      <img 
-                        src={video.thumbnail} 
-                        alt={video.title}
-                        className="thumbnail-img"
-                      />
-                      <div className="play-button">
-                        <Film style={{ width: 40, height: 40 }} fill="white" />
-                      </div>
-                      <button
-                        onClick={() => setSelectedVideo(video)}
-                        className="video-link"
-                        title="Regarder dans l'application"
-                      >
-                        Regarder
-                      </button>
-                    </div>
-                    <div className="video-info">
-                      <h3>{video.title}</h3>
-                      <p>Cliquez pour regarder dans l'app</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Stories Section */}
           {activeTab === 'stories' && (
             <div className="entertainment-section">
@@ -522,11 +443,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
         {/* Features */}
         <div className="entertainment-features">
           <div className="feature-card">
-            <Film style={{ width: 32, height: 32 }} />
-            <h3>Vidéos YouTube</h3>
-            <p>Contenus vidéo directement dans l'app</p>
-          </div>
-          <div className="feature-card">
             <BookOpen style={{ width: 32, height: 32 }} />
             <h3>Histoires Complètes</h3>
             <p>Lectures captivantes et engageantes</p>
@@ -548,33 +464,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
           </div>
         </div>
       </div>
-
-      {/* YouTube Video Player Modal */}
-      {selectedVideo && (
-        <div className="video-modal">
-          <div className="video-player-container">
-            <button 
-              className="video-close-btn"
-              onClick={() => setSelectedVideo(null)}
-              title="Fermer"
-            >
-              <X size={28} />
-            </button>
-            <h2>{selectedVideo.title}</h2>
-            <div className="video-player">
-              <iframe
-                width="100%"
-                height="100%"
-                src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
-                title={selectedVideo.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Story Reader Modal */}
       {selectedStory && (

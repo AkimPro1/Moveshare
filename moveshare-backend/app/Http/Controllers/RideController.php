@@ -16,7 +16,7 @@ class RideController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Ride::with(['user', 'vehicle'])
+        $query = Ride::with(['driver', 'vehicle'])
             ->where('status', 'active')
             ->where('ride_date', '>=', now()->toDateString())
             ->where('available_seats', '>', 0);
@@ -69,9 +69,9 @@ class RideController extends Controller
                 'total_seats' => $ride->total_seats,
                 'status' => $ride->status,
                 'driver' => [
-                    'id' => $ride->user->id,
-                    'name' => $ride->user->name,
-                    'email' => $ride->user->email,
+                    'id' => $ride->driver->id,
+                    'name' => $ride->driver->name,
+                    'email' => $ride->driver->email,
                 ],
                 'vehicle' => [
                     'brand' => $ride->vehicle->brand,
@@ -148,7 +148,7 @@ class RideController extends Controller
     public function show(Ride $ride): JsonResponse
     {
         $ride->load([
-            'user.reviewsReceived' => function($query) {
+            'driver.reviewsReceived' => function($query) {
                 $query->latest()->take(5);
             },
             'vehicle',
@@ -172,14 +172,14 @@ class RideController extends Controller
             'total_seats' => $ride->total_seats,
             'status' => $ride->status,
             'driver' => [
-                'id' => $ride->user->id,
-                'name' => $ride->user->name,
-                'email' => $ride->user->email,
-                'profile_photo' => $ride->user->profile_photo,
-                'bio' => $ride->user->bio,
-                'city' => $ride->user->city,
-                'average_rating' => (float) $ride->user->average_rating,
-                'total_reviews' => $ride->user->total_reviews,
+                'id' => $ride->driver->id,
+                'name' => $ride->driver->name,
+                'email' => $ride->driver->email,
+                'profile_photo' => $ride->driver->profile_photo,
+                'bio' => $ride->driver->bio,
+                'city' => $ride->driver->city,
+                'average_rating' => (float) $ride->driver->average_rating,
+                'total_reviews' => $ride->driver->total_reviews,
             ],
             'vehicle' => [
                 'id' => $ride->vehicle->id,
@@ -246,7 +246,7 @@ class RideController extends Controller
     public function myBookings(Request $request): JsonResponse
     {
         $bookings = Booking::where('user_id', $request->user()->id)
-            ->with(['ride.user', 'ride.vehicle'])
+            ->with(['ride.driver', 'ride.vehicle'])
             ->latest()
             ->get();
 
@@ -264,9 +264,9 @@ class RideController extends Controller
                     'price_per_seat' => (float) $booking->ride->price_per_seat,
                     'status' => $booking->ride->status,
                     'driver' => [
-                        'id' => $booking->ride->user->id,
-                        'name' => $booking->ride->user->name,
-                        'average_rating' => (float) $booking->ride->user->average_rating,
+                        'id' => $booking->ride->driver->id,
+                        'name' => $booking->ride->driver->name,
+                        'average_rating' => (float) $booking->ride->driver->average_rating,
                     ],
                     'vehicle' => [
                         'brand' => $booking->ride->vehicle->brand,

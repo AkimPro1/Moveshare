@@ -23,6 +23,25 @@
   transition: opacity var(--ms-transition-base);
 }
 
+/* Shine effect on hover */
+.ms-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
 .ms-card:hover::before {
   opacity: 1;
 }
@@ -32,9 +51,15 @@
 }
 
 .ms-card-hoverable:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.15);
-  border-color: rgba(0, 212, 255, 0.3);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2), 0 0 40px rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.4);
+}
+
+/* Effet de brillance au survol */
+.ms-card-hoverable:hover::after {
+  left: 120%;
+  opacity: 1;
 }
 
 .ms-card-hoverable:focus-visible {

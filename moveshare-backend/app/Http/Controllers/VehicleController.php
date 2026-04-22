@@ -116,6 +116,8 @@ class VehicleController extends Controller
             $data['photos'] = $photoPaths;
         }
 
+        $data['verification_status'] = 'pending';
+
         $vehicle->update($data);
 
         return response()->json($vehicle);

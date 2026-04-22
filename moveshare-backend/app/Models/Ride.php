@@ -42,9 +42,9 @@ class Ride extends Model
     /**
      * Get the user (driver) that owns the ride.
      */
-    public function user(): BelongsTo
+    public function driver(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

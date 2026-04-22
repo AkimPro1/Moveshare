@@ -113,6 +113,10 @@ export default function VehicleManagement() {
       formData.append('seats', form.seats)
       formData.append('vehicle_type', form.vehicle_type)
       
+      if (editingVehicle) {
+        formData.append('_method', 'PUT')
+      }
+      
       form.photos.forEach((photo, index) => {
         formData.append(`photos[${index}]`, photo)
       })
