@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Car, MapPin, User, LogOut, Settings, Calendar, BookOpen, Menu, X, Sparkles, Sun, Moon, Shield } from 'lucide-react'
+import { Car, MapPin, User, LogOut, Settings, Calendar, BookOpen, Menu, X, Sparkles, Sun, Moon, Shield, UserCircle } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
 import axiosClient from '../api/axiosClient'
 import './Header.css'
@@ -21,6 +21,7 @@ export default function Header() {
   const [initials, setInitials] = useState<string | null>(null)
   const [userName, setUserName] = useState<string | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [userRole, setUserRole] = useState<'driver' | 'passenger' | null>(null)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
 
@@ -32,6 +33,8 @@ export default function Header() {
     if (!token) {
       setInitials(null)
       setUserName(null)
+      setIsAdmin(false)
+      setUserRole(null)
       return
     }
 
@@ -47,10 +50,12 @@ export default function Header() {
         setInitials(init || null)
         setUserName(name || email || null)
         setIsAdmin(!!user?.is_admin)
+        setUserRole(user?.role || null)
       } catch (e) {
         setInitials(null)
         setUserName(null)
         setIsAdmin(false)
+        setUserRole(null)
       }
     })()
 
@@ -76,49 +81,8 @@ export default function Header() {
         {/* Desktop Navigation */}
         {isLoggedIn && !hideAuthLink && (
           <nav className="ms-nav-desktop">
-            <Link 
-              to="/rides" 
-              className={`ms-nav-link ${pathname === '/rides' ? 'active' : ''}`}
-            >
-              <MapPin style={{ width: 18, height: 18 }} />
-              Trajets
-            </Link>
-            <Link 
-              to="/rides/create" 
-              className={`ms-nav-link ${pathname === '/rides/create' ? 'active' : ''}`}
-            >
-              <Car style={{ width: 18, height: 18 }} />
-              Proposer
-            </Link>
-            <Link 
-              to="/my-rides" 
-              className={`ms-nav-link ${pathname === '/my-rides' ? 'active' : ''}`}
-            >
-              <Calendar style={{ width: 18, height: 18 }} />
-              Mes trajets
-            </Link>
-            <Link 
-              to="/my-bookings" 
-              className={`ms-nav-link ${pathname === '/my-bookings' ? 'active' : ''}`}
-            >
-              <BookOpen style={{ width: 18, height: 18 }} />
-              Réservations
-            </Link>
-            <Link 
-              to="/vehicles" 
-              className={`ms-nav-link ${pathname === '/vehicles' ? 'active' : ''}`}
-            >
-              <Settings style={{ width: 18, height: 18 }} />
-              Véhicules
-            </Link>
-            <Link 
-              to="/entertainment" 
-              className={`ms-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
-            >
-              <Sparkles style={{ width: 18, height: 18 }} />
-              Divertissement
-            </Link>
-            {isAdmin && (
+            {isAdmin ? (
+              // Admin: Only Administration menu
               <Link 
                 to="/admin" 
                 className={`ms-nav-link ${pathname === '/admin' ? 'active' : ''}`}
@@ -126,6 +90,63 @@ export default function Header() {
                 <Shield style={{ width: 18, height: 18 }} />
                 Administration
               </Link>
+            ) : userRole === 'passenger' ? (
+              // Passenger: Only Rides and Bookings
+              <>
+                <Link 
+                  to="/rides" 
+                  className={`ms-nav-link ${pathname === '/rides' ? 'active' : ''}`}
+                >
+                  <MapPin style={{ width: 18, height: 18 }} />
+                  Trajets
+                </Link>
+                <Link 
+                  to="/my-bookings" 
+                  className={`ms-nav-link ${pathname === '/my-bookings' ? 'active' : ''}`}
+                >
+                  <BookOpen style={{ width: 18, height: 18 }} />
+                  Réservations
+                </Link>
+                <Link 
+                  to="/entertainment" 
+                  className={`ms-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
+                >
+                  <Sparkles style={{ width: 18, height: 18 }} />
+                  Divertissement
+                </Link>
+              </>
+            ) : (
+              // Driver: Optimized menu
+              <>
+                <Link 
+                  to="/rides" 
+                  className={`ms-nav-link ${pathname === '/rides' ? 'active' : ''}`}
+                >
+                  <MapPin style={{ width: 18, height: 18 }} />
+                  Trajets
+                </Link>
+                <Link 
+                  to="/rides/create" 
+                  className={`ms-nav-link ${pathname === '/rides/create' ? 'active' : ''}`}
+                >
+                  <Car style={{ width: 18, height: 18 }} />
+                  Proposer
+                </Link>
+                <Link 
+                  to="/vehicles" 
+                  className={`ms-nav-link ${pathname === '/vehicles' ? 'active' : ''}`}
+                >
+                  <Settings style={{ width: 18, height: 18 }} />
+                  Véhicules
+                </Link>
+                <Link 
+                  to="/entertainment" 
+                  className={`ms-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
+                >
+                  <Sparkles style={{ width: 18, height: 18 }} />
+                  Divertissement
+                </Link>
+              </>
             )}
           </nav>
         )}
@@ -146,14 +167,14 @@ export default function Header() {
                 )}
               </button>
 
-              {isLoggedIn && initials ? (
+              {isLoggedIn ? (
                 <div className="ms-user-menu">
                   <button 
                     className="ms-avatar-button"
                     onClick={() => setShowUserMenu(!showUserMenu)}
                     aria-label="Menu utilisateur"
                   >
-                    {initials}
+                    {initials || <User style={{ width: 20, height: 20 }} />}
                   </button>
                   
                   {showUserMenu && (
@@ -164,7 +185,9 @@ export default function Header() {
                       />
                       <div className="ms-dropdown-menu">
                         <div className="ms-dropdown-header">
-                          <div className="ms-dropdown-avatar">{initials}</div>
+                          <div className="ms-dropdown-avatar">
+                            {initials || <User style={{ width: 20, height: 20 }} />}
+                          </div>
                           <div className="ms-dropdown-user-info">
                             <div className="ms-dropdown-user-name">{userName}</div>
                             <div className="ms-dropdown-user-role">Membre</div>
@@ -228,63 +251,106 @@ export default function Header() {
             onClick={() => setShowMobileMenu(false)}
           />
           <nav className="ms-nav-mobile">
-            <Link 
-              to="/rides" 
-              className={`ms-mobile-nav-link ${pathname === '/rides' ? 'active' : ''}`}
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <MapPin style={{ width: 20, height: 20 }} />
-              Trajets
-            </Link>
-            <Link 
-              to="/rides/create" 
-              className={`ms-mobile-nav-link ${pathname === '/rides/create' ? 'active' : ''}`}
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <Car style={{ width: 20, height: 20 }} />
-              Proposer un trajet
-            </Link>
-            <Link 
-              to="/my-rides" 
-              className={`ms-mobile-nav-link ${pathname === '/my-rides' ? 'active' : ''}`}
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <Calendar style={{ width: 20, height: 20 }} />
-              Mes trajets
-            </Link>
-            <Link 
-              to="/my-bookings" 
-              className={`ms-mobile-nav-link ${pathname === '/my-bookings' ? 'active' : ''}`}
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <BookOpen style={{ width: 20, height: 20 }} />
-              Mes réservations
-            </Link>
-            <Link 
-              to="/vehicles" 
-              className={`ms-mobile-nav-link ${pathname === '/vehicles' ? 'active' : ''}`}
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <Settings style={{ width: 20, height: 20 }} />
-              Véhicules
-            </Link>
-            <Link 
-              to="/entertainment" 
-              className={`ms-mobile-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <Sparkles style={{ width: 20, height: 20 }} />
-              Divertissement
-            </Link>
-            {isAdmin && (
-              <Link 
-                to="/admin" 
-                className={`ms-mobile-nav-link ${pathname === '/admin' ? 'active' : ''}`}
-                onClick={() => setShowMobileMenu(false)}
-              >
-                <Shield style={{ width: 20, height: 20 }} />
-                Administration
-              </Link>
+            {isAdmin ? (
+              // Admin: Only Administration menu
+              <>
+                <Link 
+                  to="/profile" 
+                  className={`ms-mobile-nav-link ${pathname === '/profile' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <UserCircle style={{ width: 20, height: 20 }} />
+                  Mon profil
+                </Link>
+                <Link 
+                  to="/admin" 
+                  className={`ms-mobile-nav-link ${pathname === '/admin' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Shield style={{ width: 20, height: 20 }} />
+                  Administration
+                </Link>
+              </>
+            ) : userRole === 'passenger' ? (
+              // Passenger: Only Rides and Bookings
+              <>
+                <Link 
+                  to="/profile" 
+                  className={`ms-mobile-nav-link ${pathname === '/profile' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <UserCircle style={{ width: 20, height: 20 }} />
+                  Mon profil
+                </Link>
+                <Link 
+                  to="/rides" 
+                  className={`ms-mobile-nav-link ${pathname === '/rides' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <MapPin style={{ width: 20, height: 20 }} />
+                  Trajets
+                </Link>
+                <Link 
+                  to="/my-bookings" 
+                  className={`ms-mobile-nav-link ${pathname === '/my-bookings' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <BookOpen style={{ width: 20, height: 20 }} />
+                  Mes réservations
+                </Link>
+                <Link 
+                  to="/entertainment" 
+                  className={`ms-mobile-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Sparkles style={{ width: 20, height: 20 }} />
+                  Divertissement
+                </Link>
+              </>
+            ) : (
+              // Driver: Optimized menu
+              <>
+                <Link 
+                  to="/profile" 
+                  className={`ms-mobile-nav-link ${pathname === '/profile' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <UserCircle style={{ width: 20, height: 20 }} />
+                  Mon profil
+                </Link>
+                <Link 
+                  to="/rides" 
+                  className={`ms-mobile-nav-link ${pathname === '/rides' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <MapPin style={{ width: 20, height: 20 }} />
+                  Trajets
+                </Link>
+                <Link 
+                  to="/rides/create" 
+                  className={`ms-mobile-nav-link ${pathname === '/rides/create' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Car style={{ width: 20, height: 20 }} />
+                  Proposer un trajet
+                </Link>
+                <Link 
+                  to="/vehicles" 
+                  className={`ms-mobile-nav-link ${pathname === '/vehicles' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Settings style={{ width: 20, height: 20 }} />
+                  Véhicules
+                </Link>
+                <Link 
+                  to="/entertainment" 
+                  className={`ms-mobile-nav-link ${pathname === '/entertainment' ? 'active' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Sparkles style={{ width: 20, height: 20 }} />
+                  Divertissement
+                </Link>
+              </>
             )}
           </nav>
         </>

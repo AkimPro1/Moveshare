@@ -2,40 +2,53 @@
  * Utility functions for handling API URLs and file paths
  */
 
+// API Base URL
 const API_BASE = 'http://127.0.0.1:8000'
 
 /**
  * Build full URL for uploaded files
- * @param photoPath - Path from API response (e.g., "/api/files/vehicles/xyz.jpg")
- * @returns Full URL
+ * Expects paths like: "/api/files/vehicles/abc.jpg"
+ * Returns: "http://127.0.0.1:8000/api/files/vehicles/abc.jpg"
  */
 export function getImageUrl(photoPath: string): string {
-  if (!photoPath) return ''
-  
-  // If it's already a full URL, return as-is
-  if (photoPath.startsWith('http')) {
-    return photoPath
+  if (!photoPath || typeof photoPath !== 'string') {
+    return ''
   }
   
-  // If it's a relative path without /api/, prepend base
-  if (!photoPath.startsWith('/api/')) {
-    return `${API_BASE}/api/files/${photoPath}`
+  // Trim and normalize slashes
+  let path = photoPath.trim().replace(/\\/g, '/')
+
+  // If it's already a full URL with protocol, return as-is
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path
   }
-  
-  // If it already has /api/, just prepend base
-  return `${API_BASE}${photoPath}`
+
+  // Ensure path starts with /
+  if (!path.startsWith('/')) {
+    path = '/' + path
+  }
+
+  // Construct full URL
+  return `${API_BASE}${path}`
 }
 
 /**
  * Get image URL for vehicle photos
+ * Expects array of photo paths from backend
  */
-export function getVehicleImageUrl(photoPath: string): string {
+export function getVehicleImageUrl(photoPath: string | null | undefined): string {
+  if (!photoPath) {
+    return ''
+  }
   return getImageUrl(photoPath)
 }
 
 /**
- * Get image URL for profile photos
+ * Get image URL for profile/user photos
  */
-export function getProfileImageUrl(photoPath: string): string {
+export function getProfileImageUrl(photoPath: string | null | undefined): string {
+  if (!photoPath) {
+    return ''
+  }
   return getImageUrl(photoPath)
 }

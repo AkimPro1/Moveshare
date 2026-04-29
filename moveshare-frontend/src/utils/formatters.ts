@@ -15,8 +15,11 @@ export const formatTime = (time: string): string => {
 }
 
 // Price formatting
-export const formatPrice = (price: number): string => {
-  return `${price.toFixed(2)} €`
+export const formatPrice = (price: number | string | null | undefined): string => {
+  if (price === null || price === undefined) return '0.00 €'
+  const num = typeof price === 'string' ? parseFloat(price) : price
+  if (isNaN(num)) return '0.00 €'
+  return `${num.toFixed(2)} €`
 }
 
 // Vehicle type display

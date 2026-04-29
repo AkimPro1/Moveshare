@@ -1,5 +1,6 @@
 import { formatDate } from '../utils/formatters'
 import { Review } from '../types'
+import { getProfileImageUrl } from '../utils/urls'
 import Card from './Card'
 import StarRating from './StarRating'
 import './ReviewCard.css'
@@ -19,7 +20,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
         <div className="review-author">
           {reviewerPhoto ? (
             <img 
-              src={`http://127.0.0.1:8000/storage/${reviewerPhoto}`} 
+              src={getProfileImageUrl(reviewerPhoto)} 
               alt={reviewerName}
               className="review-avatar"
             />

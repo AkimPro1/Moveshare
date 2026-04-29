@@ -31,6 +31,30 @@ class Vehicle extends Model
     ];
 
     /**
+     * Get photos, ensuring it's always an array
+     */
+    public function getPhotosAttribute($value): array
+    {
+        if (is_null($value)) {
+            return [];
+        }
+        
+        if (is_array($value)) {
+            // Filter out empty strings and non-string values
+            return array_filter(array_map('strval', $value), function($photo) {
+                return !empty(trim($photo));
+            });
+        }
+        
+        if (is_string($value)) {
+            $trimmed = trim($value);
+            return !empty($trimmed) ? [$trimmed] : [];
+        }
+        
+        return [];
+    }
+
+    /**
      * Get the user that owns the vehicle.
      */
     public function user(): BelongsTo

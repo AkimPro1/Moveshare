@@ -281,13 +281,30 @@ export default function RideDetails() {
             <Card className="vehicle-card">
               <h2>Véhicule</h2>
               
-              {ride.vehicle.photos && ride.vehicle.photos.length > 0 && (
+              {ride.vehicle.photos && ride.vehicle.photos.length > 0 ? (
                 <div className="vehicle-photos">
                   <img
                     src={getVehicleImageUrl(ride.vehicle.photos[0])}
                     alt={`${ride.vehicle.brand} ${ride.vehicle.model}`}
                     className="vehicle-photo-main"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      const parent = e.currentTarget.parentElement
+                      if (parent) {
+                        const placeholder = parent.querySelector('.vehicle-photo-placeholder')
+                        if (placeholder) placeholder.style.display = 'flex'
+                      }
+                    }}
                   />
+                  <div className="vehicle-photo-placeholder" style={{ display: 'none' }}>
+                    <Car style={{ width: 40, height: 40 }} />
+                  </div>
+                </div>
+              ) : (
+                <div className="vehicle-photos">
+                  <div className="vehicle-photo-placeholder">
+                    <Car style={{ width: 40, height: 40 }} />
+                  </div>
                 </div>
               )}
 

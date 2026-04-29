@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { User, MapPin, Mail, Phone, Edit2, Camera, Award, Car, Users } from 'lucide-react'
 import { profileApi } from '../api/profileApi'
 import { UserProfile } from '../types'
+import { getProfileImageUrl } from '../utils/urls'
 import Card from '../components/Card'
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -111,8 +112,8 @@ export default function Profile() {
   }
 
   const userInitials = (profile.user.name || 'U').split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)
-  const photoUrl = profile.user.profile_photo 
-    ? `http://127.0.0.1:8000/storage/${profile.user.profile_photo}` 
+  const photoUrl = profile.user.profile_photo
+    ? getProfileImageUrl(profile.user.profile_photo)
     : null
 
   return (

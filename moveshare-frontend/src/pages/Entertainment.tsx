@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BookOpen, Lightbulb, Newspaper, Gamepad2, X } from 'lucide-react'
+import { BookOpen, Gamepad2, X } from 'lucide-react'
 import { SnakeGame, MatchstickGame, TriviaGame } from '../components/Games'
 import '../styles/Entertainment.css'
 
@@ -12,28 +12,10 @@ interface Story {
   content: string
 }
 
-interface FunFact {
-  id: string
-  fact: string
-  category: string
-}
-
-interface NewsItem {
-  id: string
-  title: string
-  description: string
-  source: string
-  timestamp: string
-  category: string
-  fullContent: string
-  author: string
-}
-
 export default function Entertainment() {
-  const [activeTab, setActiveTab] = useState<'stories' | 'funfacts' | 'news' | 'games'>('stories')
+  const [activeTab, setActiveTab] = useState<'stories' | 'games'>('stories')
   const [activeGame, setActiveGame] = useState<'snake' | 'matchstick' | 'trivia' | null>(null)
   const [selectedStory, setSelectedStory] = useState<Story | null>(null)
-  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null)
 
   // Histoires courtes complètes
   const stories: Story[] = [
@@ -117,170 +99,6 @@ En descendant de la voiture, le passager sait que sa vie vient de basculer. Il n
     }
   ]
 
-  // Anecdotes amusantes
-  const funFacts: FunFact[] = [
-    {
-      id: '1',
-      fact: 'Les poules ne peuvent voir que 100 mètres loin, tandis que les aigles peuvent voir jusqu\'à 8 km!',
-      category: 'Animaux'
-    },
-    {
-      id: '2',
-      fact: 'Le miel ne se gâte jamais. Des archéologues ont trouvé du miel de 3000 ans encore comestible!',
-      category: 'Science'
-    },
-    {
-      id: '3',
-      fact: 'Les bananes sont des herbes, pas des fruits... techniquement parlant!',
-      category: 'Nature'
-    },
-    {
-      id: '4',
-      fact: 'Un escargot peut dormir pendant 3 ans sans problème.',
-      category: 'Animaux'
-    },
-    {
-      id: '5',
-      fact: 'La Terre est la seule planète nommée d\'après une déesse non-romaine dans le système solaire.',
-      category: 'Espace'
-    },
-    {
-      id: '6',
-      fact: 'Votre nez peut mémoriser 50 000 odeurs différentes!',
-      category: 'Corps Humain'
-    },
-    {
-      id: '7',
-      fact: 'Les coraux sont en fait des animaux, pas des plantes.',
-      category: 'Océan'
-    },
-    {
-      id: '8',
-      fact: 'Un jour sur Vénus dure plus longtemps qu\'une année vénusienne!',
-      category: 'Espace'
-    }
-  ]
-
-  // Actualités MSN avec contenu complet
-  const newsItems: NewsItem[] = [
-    {
-      id: '1',
-      title: 'Nouvelles règles de transport en 2026',
-      description: 'Les autorités annoncent des changements majeurs dans les réglementations de covoiturage...',
-      source: 'MSN Actualités',
-      timestamp: 'Il y a 2h',
-      category: 'Transport',
-      author: 'Sophie Bernard',
-      fullContent: `Les autorités nationales ont annoncé aujourd'hui une série de changements majeurs dans les réglementations de covoiturage pour améliorer la sécurité et l'équité. Ces nouvelles mesures entreront en vigueur le 1er février 2026 et affecteront tous les services de covoiturage du territoire.
-
-Parmi les principaux changements:
-- Obligation d'une vérification d'antécédents plus stricte pour tous les conducteurs
-- Mise en place d'un système de notation unifié pour les passagers et les conducteurs
-- Augmentation des exigences d'assurance pour les véhicules de covoiturage
-- Création d'un fonds de protection pour les utilisateurs en cas de litige
-
-Le ministre des Transports a déclaré: "Ces réglementations garantiront que le covoiturage reste un mode de transport sûr, fiable et équitable pour tous les Français. Nous écoutons les retours des utilisateurs et nous nous engageons à créer un écosystème de transport durable."
-
-Les plateformes de covoiturage disposent de trois mois pour se conformer aux nouvelles normes. Des amendes substantielles ont été prévues pour les contrevenants.`
-    },
-    {
-      id: '2',
-      title: 'Technologie autonome: les dernières avancées',
-      description: 'Les constructeurs automobiles présentent les véhicules autonomes de nouvelle génération...',
-      source: 'MSN Tech',
-      timestamp: 'Il y a 4h',
-      category: 'Technologie',
-      author: 'Jean Moreau',
-      fullContent: `Lors d'une conférence de presse tenue à Paris, les plus grands constructeurs automobiles ont présenté les véhicules autonomes de nouvelle génération avec des capacités considérablement améliorées.
-
-Les innovations clés incluent:
-- Systèmes d'IA capables de traiter les informations 10 fois plus rapidement que les générations précédentes
-- Améliorations majeures en reconnaissance des piétons et des cyclistes
-- Intégration seamless avec les infrastructure de villes intelligentes
-- Réduction des coûts de production de 30%
-
-Le PDG de TechAuto a déclaré: "Nous sommes à l'aube d'une révolution du transport. Les véhicules autonomes ne sont plus une science-fiction; ils sont une réalité qui transformera le covoiturage au cours des cinq prochaines années."
-
-Les essais pilotes commenceront dans 15 villes françaises en 2026, avec un déploiement complet prévu pour 2028.`
-    },
-    {
-      id: '3',
-      title: 'Mobilité verte: l\'électrique gagne du terrain',
-      description: 'Les ventes de véhicules électriques ont augmenté de 45% cette année...',
-      source: 'MSN Éco',
-      timestamp: 'Il y a 6h',
-      category: 'Environnement',
-      author: 'Marie Dupont',
-      fullContent: `Les dernières statistiques publiées par le ministère de l'Écologie montrent que les ventes de véhicules électriques ont augmenté de 45% en 2025, marquant un tournant majeur dans la transition énergétique du transport.
-
-Points clés de ce rapport:
-- Plus de 2 millions de véhicules électriques maintenant en circulation en France
-- Expansion significative du réseau de recharge: 50 000 bornes disponibles
-- Réduction des prix des batteries de 40% sur les deux dernières années
-- Subventions gouvernementales pour les véhicules électriques de second marché
-
-Cependant, des défis restent:
-- Infrastructure de recharge inégalement distribuée entre les zones rurales et urbaines
-- Temps de recharge toujours considéré comme un obstacle par certains conducteurs
-- Besoin d'une meilleure coordination entre les différentes plateformes de recharge
-
-Les experts estiment que d'ici 2030, les véhicules électriques représenteront 60% du parc automobile français.`
-    },
-    {
-      id: '4',
-      title: 'Sécurité routière: conseils essentiels',
-      description: 'Les experts partagent les meilleures pratiques pour rester en sécurité...',
-      source: 'MSN Sécurité',
-      timestamp: 'Il y a 8h',
-      category: 'Sécurité',
-      author: 'Marc Leclerc',
-      fullContent: `Avec l'augmentation des trajets longue distance, la Sécurité Routière a publié un guide complet des meilleures pratiques pour minimiser les risques.
-
-Recommandations principales:
-- Prendre une pause toutes les deux heures lors de trajets longs
-- Éviter de voyager entre minuit et 6h du matin si possible
-- Utiliser des applications de co-voiturage fiables et vérifiées
-- Partager votre itinéraire avec un ami ou un membre de la famille
-- Établir une bonne communication avec votre co-conducteur ou vos passagers
-- Vérifier l'état du véhicule avant chaque trajet
-
-Pour les voyageurs fréquents:
-- Maintenez votre véhicule en bon état de fonctionnement
-- Investissez dans une formation de conduite défensive
-- Utilisez des systèmes d'alerte de fatigue si disponibles
-- Envisagez l'assurance voyage supplémentaire
-
-"La route est un environnement partagé qui demande respect, attention et responsabilité," affirme le directeur de la Sécurité Routière.`
-    },
-    {
-      id: '5',
-      title: 'Impact de l\'IA sur les transports',
-      description: 'Comment l\'intelligence artificielle révolutionne l\'industrie des transports...',
-      source: 'MSN Innovation',
-      timestamp: 'Hier',
-      category: 'Technologie',
-      author: 'Nathalie Bernard',
-      fullContent: `Un rapport extensive du centre de recherche sur les transports détaille comment l'intelligence artificielle transforme fondamentalement l'industrie du covoiturage et du transport.
-
-Applications de l'IA en cours de développement:
-- Algorithmes de jumelage prédictifs qui optimisent les trajets
-- Systèmes de tari
-- Chatbots de support client disponibles 24/7
-
-Impact économique:
-- Augmentation de l'efficacité opérationnelle de 35%
-- Réduction des coûts pour les utilisateurs de 20%
-- Création de 50 000 nouveaux emplois dans le secteur tech
-
-Défis à relever:
-- Préoccupations concernant la vie privée et la collecte de données
-- Besoin de réglementation appropriée
-- Formation des travailleurs pour adapter à la technologie
-
-Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des objectifs de durabilité dans le transport d'ici 2030.`
-    }
-  ]
-
   // Games list
   const games = [
     {
@@ -322,20 +140,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
             <span>Histoires</span>
           </button>
           <button
-            className={`entertainment-tab ${activeTab === 'funfacts' ? 'active' : ''}`}
-            onClick={() => setActiveTab('funfacts')}
-          >
-            <Lightbulb style={{ width: 20, height: 20 }} />
-            <span>Anecdotes</span>
-          </button>
-          <button
-            className={`entertainment-tab ${activeTab === 'news' ? 'active' : ''}`}
-            onClick={() => setActiveTab('news')}
-          >
-            <Newspaper style={{ width: 20, height: 20 }} />
-            <span>Actualités</span>
-          </button>
-          <button
             className={`entertainment-tab ${activeTab === 'games' ? 'active' : ''}`}
             onClick={() => setActiveTab('games')}
           >
@@ -366,51 +170,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
                     >
                       Lire l'histoire
                     </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Fun Facts Section */}
-          {activeTab === 'funfacts' && (
-            <div className="entertainment-section">
-              <h2>💡 Anecdotes Amusantes</h2>
-              <p className="section-subtitle">Faits intéressants et blagues du jour</p>
-              <div className="funfacts-grid">
-                {funFacts.map((item, index) => (
-                  <div key={item.id} className="funfact-card">
-                    <div className="funfact-number">#{index + 1}</div>
-                    <div className="funfact-category">{item.category}</div>
-                    <p className="funfact-text">{item.fact}</p>
-                    <div className="funfact-icon">✨</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* News Section */}
-          {activeTab === 'news' && (
-            <div className="entertainment-section">
-              <h2>📰 Actualités MSN</h2>
-              <p className="section-subtitle">Restez informé avec les dernières actualités</p>
-              <div className="news-grid">
-                {newsItems.map((news) => (
-                  <div key={news.id} className="news-card">
-                    <div className="news-header">
-                      <span className="news-category">{news.category}</span>
-                      <span className="news-time">{news.timestamp}</span>
-                    </div>
-                    <h3>{news.title}</h3>
-                    <p className="news-description">{news.description}</p>
-                    <button 
-                      className="news-link"
-                      onClick={() => setSelectedNews(news)}
-                    >
-                      Lire plus →
-                    </button>
-                    <div className="news-source">{news.source}</div>
                   </div>
                 ))}
               </div>
@@ -448,16 +207,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
             <p>Lectures captivantes et engageantes</p>
           </div>
           <div className="feature-card">
-            <Lightbulb style={{ width: 32, height: 32 }} />
-            <h3>Anecdotes Fascinantes</h3>
-            <p>Découvrez des faits intéressants</p>
-          </div>
-          <div className="feature-card">
-            <Newspaper style={{ width: 32, height: 32 }} />
-            <h3>Actualités Complètes</h3>
-            <p>Restez informé en détail</p>
-          </div>
-          <div className="feature-card">
             <Gamepad2 style={{ width: 32, height: 32 }} />
             <h3>Jeux Interactifs</h3>
             <p>Jeux amusants pour vous divertir</p>
@@ -482,37 +231,6 @@ Les experts prédisent que l'IA jouera un rôle central dans l'atteinte des obje
             </div>
             <div className="story-reader-content">
               {selectedStory.content.split('\n\n').map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* News Detail Modal */}
-      {selectedNews && (
-        <div className="news-modal">
-          <div className="news-detail-container">
-            <button 
-              className="news-close-btn"
-              onClick={() => setSelectedNews(null)}
-              title="Fermer"
-            >
-              <X size={28} />
-            </button>
-            <div className="news-detail-header">
-              <div className="news-detail-meta">
-                <span className="news-detail-category">{selectedNews.category}</span>
-                <span className="news-detail-time">{selectedNews.timestamp}</span>
-              </div>
-              <h1>{selectedNews.title}</h1>
-              <div className="news-detail-author">
-                <span>Par {selectedNews.author}</span>
-                <span className="news-detail-source">{selectedNews.source}</span>
-              </div>
-            </div>
-            <div className="news-detail-content">
-              {selectedNews.fullContent.split('\n\n').map((paragraph, idx) => (
                 <p key={idx}>{paragraph}</p>
               ))}
             </div>

@@ -45,7 +45,7 @@ class VehicleController extends Controller
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $photo) {
                 $path = $photo->store('vehicles', 'public');
-                // Use direct API route instead of Storage::url() which requires symlink
+                // Store as: /api/files/vehicles/filename
                 $photoPaths[] = '/api/files/' . $path;
             }
         }
@@ -105,12 +105,11 @@ class VehicleController extends Controller
             'photos.*' => ['image', 'max:5120'],
         ]);
 
-        // Handle photo uploads
+        // Handle photo uploads - only if new photos provided
         if ($request->hasFile('photos')) {
             $photoPaths = [];
             foreach ($request->file('photos') as $photo) {
                 $path = $photo->store('vehicles', 'public');
-                // Use direct API route instead of Storage::url() which requires symlink
                 $photoPaths[] = '/api/files/' . $path;
             }
             $data['photos'] = $photoPaths;

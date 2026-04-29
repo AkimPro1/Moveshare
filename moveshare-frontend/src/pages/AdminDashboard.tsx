@@ -475,14 +475,28 @@ export default function AdminDashboard() {
         {selectedVehicle && (
           <div className="vehicle-inspection">
             <div className="inspection-photos">
-              {selectedVehicle.photos && selectedVehicle.photos.length > 0 ? (
+              {selectedVehicle.photos && Array.isArray(selectedVehicle.photos) && selectedVehicle.photos.length > 0 ? (
                 <div className="photos-grid">
-                  {selectedVehicle.photos.map((p: string, i: number) => (
-                    <img key={i} src={getVehicleImageUrl(p)} alt={`Vehicule ${i}`} className="inspection-photo" />
-                  ))}
+                  {selectedVehicle.photos.map((p: string, i: number) => {
+                    const imageUrl = getVehicleImageUrl(p)
+                    return (
+                      <img 
+                        key={i} 
+                        src={imageUrl} 
+                        alt={`Vehicule ${i}`} 
+                        className="inspection-photo"
+                        onError={(e) => {
+                          e.currentTarget.style.border = '2px solid red'
+                          e.currentTarget.alt = 'Image non trouvée'
+                        }}
+                      />
+                    )
+                  })}
                 </div>
               ) : (
-                <div className="no-photos">Aucune photo disponible</div>
+                <div className="no-photos">
+                  Aucune photo disponible
+                </div>
               )}
             </div>
             <div className="inspection-details">

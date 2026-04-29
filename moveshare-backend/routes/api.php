@@ -35,13 +35,34 @@ Route::get('/ping', function () {
 
 // Serve uploaded files (images, documents) - PUBLIC
 Route::get('/files/{path}', function ($path) {
-	$full_path = storage_path('app/public/' . $path);
-	
-	if (!file_exists($full_path)) {
-		return response()->json(['message' => 'File not found'], 404);
-	}
-	
-	return response()->file($full_path);
+    // Security check: prevent directory traversal
+    if (str_contains($path, '..') || str_contains($path, '~')) {
+        return response()->json(['message' => 'Invalid path'], 400);
+    }
+
+    // Normalize path
+    $path = trim($path);
+    $path = str_replace('\\', '/', $path);
+    
+    // Build full file path
+    $full_path = storage_path('app/public/' . $path);
+    $real_path = realpath($full_path);
+    $storage_dir = realpath(storage_path('app/public'));
+    
+    // Verify the real path is within storage directory
+    if ($real_path === false || $storage_dir === false || !str_starts_with($real_path, $storage_dir)) {
+        return response()->json(['message' => 'Invalid path'], 401);
+    }
+    
+    if (!file_exists($real_path) || !is_file($real_path)) {
+        return response()->json(['message' => 'File not found'], 404);
+    }
+    
+    try {
+        return response()->file($real_path);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Error serving file'], 500);
+    }
 })->where('path', '.*');
 
 // Protected routes

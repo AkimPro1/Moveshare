@@ -1,4 +1,3 @@
-
 <?php
 namespace App\Http\Controllers;
 
@@ -68,7 +67,19 @@ class AdminController extends Controller
 
     public function vehicles()
     {
-        return response()->json(Vehicle::with('user')->latest()->paginate(10));
+        $vehicles = Vehicle::with('user')->latest()->paginate(10);
+
+        // Ensure photos is always an array (never null)
+        $vehicles->getCollection()->transform(function ($v) {
+            if (is_string($v->photos)) {
+                $v->photos = json_decode($v->photos, true) ?: [];
+            } else {
+                $v->photos = $v->photos ?? [];
+            }
+            return $v;
+        });
+
+        return response()->json($vehicles);
     }
 
     public function verifyVehicle(Request $request, Vehicle $vehicle)
@@ -89,9 +100,21 @@ class AdminController extends Controller
     public function rides()
     {
         try {
-            $rides = Ride::with(['driver:id,name,email', 'vehicle:id,brand,model,year,license_plate,user_id'])
+            $rides = Ride::with(['driver:id,name,email', 'vehicle:id,brand,model,year,license_plate,user_id,photos'])
                 ->latest()
                 ->paginate(10);
+            
+            // Ensure vehicle photos is always an array (never null)
+            $rides->getCollection()->transform(function ($ride) {
+                if ($ride->vehicle) {
+                    if (is_string($ride->vehicle->photos)) {
+                        $ride->vehicle->photos = json_decode($ride->vehicle->photos, true) ?: [];
+                    } else {
+                        $ride->vehicle->photos = $ride->vehicle->photos ?? [];
+                    }
+                }
+                return $ride;
+            });
             
             return response()->json($rides);
         } catch (\Exception $e) {

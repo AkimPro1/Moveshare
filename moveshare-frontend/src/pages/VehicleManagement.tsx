@@ -191,17 +191,29 @@ export default function VehicleManagement() {
             {vehicles.map((vehicle) => (
               <Card key={vehicle.id} className="vehicle-card">
                 <div className="vehicle-photos">
-                  {vehicle.photos.length > 0 ? (
+                  {vehicle.photos && vehicle.photos.length > 0 ? (
                     <img 
                       src={getVehicleImageUrl(vehicle.photos[0])} 
                       alt={`${vehicle.brand} ${vehicle.model}`}
                       className="vehicle-photo"
+                      onError={(e) => {
+                        // Fallback to placeholder on error
+                        e.currentTarget.src = ''
+                        e.currentTarget.style.display = 'none'
+                        const parent = e.currentTarget.parentElement
+                        if (parent) {
+                          const placeholder = parent.querySelector('.vehicle-photo-placeholder')
+                          if (placeholder) placeholder.style.display = 'flex'
+                        }
+                      }}
                     />
-                  ) : (
-                    <div className="vehicle-photo-placeholder">
-                      <Car style={{ width: 40, height: 40, color: 'var(--ms-muted)' }} />
-                    </div>
-                  )}
+                  ) : null}
+                  <div 
+                    className="vehicle-photo-placeholder"
+                    style={{ display: vehicle.photos && vehicle.photos.length > 0 ? 'none' : 'flex' }}
+                  >
+                    <Car style={{ width: 40, height: 40, color: 'var(--ms-muted)' }} />
+                  </div>
                   {vehicle.verification_status === 'verified' && (
                     <div className="vehicle-verified-badge">
                       <BadgeCheck style={{ width: 16, height: 16 }} />
